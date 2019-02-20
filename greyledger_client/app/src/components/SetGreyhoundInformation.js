@@ -49,7 +49,7 @@ class SetGreyhoundInformation extends React.Component {
   render() {
       return (
         <div>
-          <button onClick={this.setGreyHoundInformation}>Add Greyhound</button>
+          <button onClick={this.setGreyHoundInformation}>Add New Greyhound</button>
           <div><p>Transaction status: {this.state.transactionStatus}</p></div>
         </div>
       );
