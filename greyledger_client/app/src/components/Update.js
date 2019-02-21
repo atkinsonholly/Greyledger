@@ -6,7 +6,10 @@ const Update = (props) => {
     return (
       <div className="update">
         <div className="update-container">
-          <div><Link to="/">Close</Link></div>
+          <div>
+            [Update personal details stuff]
+          </div>
+          <div><Link to="/profile">Close</Link></div>
         </div>
       </div>
     )

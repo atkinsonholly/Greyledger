@@ -3,57 +3,47 @@ import { Link } from 'react-router-dom'
 import ReadContractOutput from "./ReadContractOutput";
 import SetGreyhoundInformation from "./SetGreyhoundInformation";
 
-// Register and update new greyhounds
+// Register new greyhounds and update existing greyhounds
 class Register extends Component {
 
   state = {
-    loading: true,
-    drizzleState: null,
     addGreyhound: false,
     updateGreyhound: false
   };
 
-  componentDidMount() {
-    const { drizzle } = this.props;
-
-    // subscribe to changes in the store
-    this.unsubscribe = drizzle.store.subscribe(() => {
-      // every time the store updates, grab the state from drizzle
-      const drizzleState = drizzle.store.getState();
-
-      // check to see if it's ready, if so, update local component state
-      if (drizzleState.drizzleStatus.initialized) {
-        this.setState({ loading: false, drizzleState });
-      }
-    });
+  toggleAddGreyhound = () => {
+    this.setState({
+      addGreyhound: true,
+      updateGreyhound: false
+    })
   }
 
-  compomentWillUnmount() {
-    this.unsubscribe();
+  toggleUpdateGreyhound = () => {
+    this.setState({
+      addGreyhound: false,
+      updateGreyhound: true
+    })
   }
 
   render() {
-    if (this.state.loading) return (
+    if (this.props.loading) return (
       <div>
         "Loading Drizzle..."
         <div><Link to="/profile">Close</Link></div>
       </div>
     );
-
-    if (this.state.addGreyhound === true) return (
-      <div className="Registration">
-          New greyhound form
-          <ReadContractOutput
-            drizzle={this.props.drizzle}
-            drizzleState={this.state.drizzleState}
-          />
-          <SetGreyhoundInformation
-            drizzle={this.props.drizzle}
-            drizzleState={this.state.drizzleState}
-          />
-          <div><Link to="/profile">Close</Link></div>
-      </div>
-    );
+    //
+    // if (this.state.addGreyhound === true) return (
+    //   <div className="Registration">
+    //       [New greyhound form]
+    //
+    //       <SetGreyhoundInformation
+    //         drizzle={this.props.drizzle}
+    //         drizzleState={this.props.drizzleState}
+    //       />
+    //       <div><Link to="/profile">Close</Link></div>
+    //   </div>
+    // );
 
     if (this.state.updateGreyhound === true) return (
       <div className="UpdateGreyhound">
@@ -64,8 +54,12 @@ class Register extends Component {
 
     else return (
       <div>
+        {this.state.addGreyhound === false ? <ReadContractOutput
+          drizzle={this.props.drizzle}
+          drizzleState={this.props.drizzleState}
+        /> : null}
         <button onClick={this.toggleAddGreyhound}>Add New Greyhound</button>
-        <button onClick={this.toggleAddGreyhound}>Update Existing Greyhound</button>
+        <button onClick={this.toggleUpdateGreyhound}>Update Existing Greyhound</button>
         <div><Link to="/profile">Close</Link></div>
       </div>
     );
