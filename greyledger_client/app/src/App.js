@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import Adapter from './adapters/API'
+//import Adapter from './adapters/API'
 import "./styling/App.css";
 import Navbar from './components/Navbar'
 import Home from './components/Home'
@@ -93,6 +93,7 @@ class App extends Component {
     this.unsubscribe = drizzle.store.subscribe(() => {
       // every time the store updates, grab the state from drizzle
       const drizzleState = drizzle.store.getState();
+
       // check to see if it's ready, if so, update local component state
       if (drizzleState.drizzleStatus.initialized) {
         this.setState({ loading: false, drizzleState });

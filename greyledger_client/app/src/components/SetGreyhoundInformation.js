@@ -13,9 +13,12 @@ class SetGreyhoundInformation extends React.Component {
     const stackId = contract.methods["addGreyhound"].cacheSend({
       from: drizzleState.accounts[0]
     });
+
     console.log(stackId)
     // save the `stackId` for later reference
-    this.setState({ stackId });
+    this.setState({
+      stackId
+    });
   };
 
   render() {

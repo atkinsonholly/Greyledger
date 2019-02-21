@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
-import ReadContractOutput from "./ReadContractOutput";
 import SetGreyhoundInformation from "./SetGreyhoundInformation";
 
 // Register new greyhounds and update existing greyhounds
@@ -32,18 +31,17 @@ class Register extends Component {
         <div><Link to="/profile">Close</Link></div>
       </div>
     );
-    //
-    // if (this.state.addGreyhound === true) return (
-    //   <div className="Registration">
-    //       [New greyhound form]
-    //
-    //       <SetGreyhoundInformation
-    //         drizzle={this.props.drizzle}
-    //         drizzleState={this.props.drizzleState}
-    //       />
-    //       <div><Link to="/profile">Close</Link></div>
-    //   </div>
-    // );
+
+    if (this.state.addGreyhound === true) return (
+      <div className="Registration">
+          [New greyhound form]
+          <SetGreyhoundInformation
+            drizzle={this.props.drizzle}
+            drizzleState={this.props.drizzleState}
+          />
+          <div><Link to="/profile">Close</Link></div>
+      </div>
+    );
 
     if (this.state.updateGreyhound === true) return (
       <div className="UpdateGreyhound">
@@ -54,10 +52,6 @@ class Register extends Component {
 
     else return (
       <div>
-        {this.state.addGreyhound === false ? <ReadContractOutput
-          drizzle={this.props.drizzle}
-          drizzleState={this.props.drizzleState}
-        /> : null}
         <button onClick={this.toggleAddGreyhound}>Add New Greyhound</button>
         <button onClick={this.toggleUpdateGreyhound}>Update Existing Greyhound</button>
         <div><Link to="/profile">Close</Link></div>
