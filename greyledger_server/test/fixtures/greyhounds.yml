@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  left_ear: MyString
+  right_ear: MyString
+  greyhound_owner: 1
+  sire: MyString
+  birthdate: 2019-02-23
+  status: MyString
+  distemper: 2019-02-23
+  viral_hepatitis: 2019-02-23
+  leptospira_canicola: 2019-02-23
+  leptospira_icterihaemorrhagiae: 2019-02-23
+  parvovirus: 2019-02-23
+
+two:
+  name: MyString
+  left_ear: MyString
+  right_ear: MyString
+  greyhound_owner: 1
+  sire: MyString
+  birthdate: 2019-02-23
+  status: MyString
+  distemper: 2019-02-23
+  viral_hepatitis: 2019-02-23
+  leptospira_canicola: 2019-02-23
+  leptospira_icterihaemorrhagiae: 2019-02-23
+  parvovirus: 2019-02-23
