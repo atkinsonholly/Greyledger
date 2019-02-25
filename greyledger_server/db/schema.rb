@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_23_145549) do
+ActiveRecord::Schema.define(version: 2019_02_25_125949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "greyhound_owners", force: :cascade do |t|
-    t.string "greyhound_id"
-    t.string "owner_id"
+    t.integer "greyhound_id"
+    t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 2019_02_23_145549) do
     t.string "first_name"
     t.string "last_name"
     t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_greyhounds", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "greyhound_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

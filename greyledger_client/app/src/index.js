@@ -9,7 +9,7 @@ import { Drizzle, generateStore } from "drizzle";
 import NewGreyhound from "./contracts/NewGreyhound.json";
 
 // let drizzle know what contracts we want
-const options = { contracts: [NewGreyhound] };
+const options = { contracts: [NewGreyhound], polls: { blocks: 3000 } };
 
 // setup the drizzle store and drizzle
 const drizzleStore = generateStore(options);
@@ -19,5 +19,5 @@ const drizzle = new Drizzle(options, drizzleStore);
 ReactDOM.render(
   <Router>
     <App drizzle={drizzle} />
-  </Router>, 
+  </Router>,
   document.getElementById('root'));

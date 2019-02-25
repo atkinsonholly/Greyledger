@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :greyhounds
+  has_many :user_greyhounds
+  has_many :greyhounds, through: :user_greyhounds
 
   has_secure_password
 

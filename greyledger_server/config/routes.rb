@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get '/profile', to: 'users#profile'
 
       resources :greyhound_owners
+      resources :user_greyhounds
       resources :owners
       resources :greyhounds
     end
