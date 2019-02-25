@@ -33,6 +33,8 @@ class App extends Component {
         })
       }
       else if (data === undefined) {
+        // Need to prevent user from being given an token that is 'undefined'
+        // Need to render an error message to the screen. Also for signup 
         return
       }
   };

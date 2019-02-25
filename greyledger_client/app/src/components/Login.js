@@ -4,7 +4,7 @@ const Login = (props) => {
     return (
         <div className="login-container">
           <div className="login-logo-container">
-              <img className="login-logo" src="" alt="logo"></img>
+              <img className="login-logo" src="./images/GREYLEDGER.png" alt="logo"></img>
           </div>
           <p></p>
           <form onSubmit={props.login}>
