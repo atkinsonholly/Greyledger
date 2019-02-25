@@ -1,4 +1,4 @@
-class GreyhoundOwnersController < ApplicationController
+class Api::V1::GreyhoundOwnersController < ApplicationController
   def index
     @greyhound_owners = GreyhoundOwner.all
     render json: @greyhound_owners

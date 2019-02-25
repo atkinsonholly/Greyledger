@@ -1,92 +1,90 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-//import Adapter from './adapters/API'
+import Adapter from './adapters/API'
 import "./styling/App.css";
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import Register from './components/Register'
-import Profile from './components/Profile'
-import Update from './components/Update'
-// import ReadContractOutput from "./components/ReadContractOutput";
-// import SetGreyhoundInformation from "./components/SetGreyhoundInformation";
+
+//Components
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import Register from './components/Register';
+import Profile from './components/Profile';
+import Update from './components/Update';
+import LoginCollection from './components/LoginCollection';
 
 class App extends Component {
 
   state = {
     loading: true,
     drizzleState: null,
-    users: [],
     greyhounds: [],
     currentUser: null
   };
 
-  // loginUser = async (email, password) => {
-  //   const data = await Adapter.loginUser(email, password)
-  //     if (data !== undefined) {
-  //       localStorage.setItem('token', data.token)
-  //       this.getUserFromAPI()
-  //       this.fetchUsers()
-  //     }
-  //     else if (data === undefined) {
-  //       return
-  //     }
-  // }
-  //
-  // logoutUser = () => {
-  //   localStorage.removeItem('token')
-  //   this.setState({
-  //     currentUser: null,
-  //     selectedUser: null
-  //   })
-  // }
+  loginUser = async (email, password) => {
+    const data = await Adapter.loginUser(email, password)
+      if (data !== undefined) {
+        localStorage.setItem('token', data.token);
+        const user = this.getUserFromAPI();
+        const greyhounds = this.fetchGreyhounds();
+        this.setState({
+          currentUser: user,
+          currentUserGreyhounds: data.user.greyhounds,
+          greyhounds: greyhounds
+        })
+      }
+      else if (data === undefined) {
+        return
+      }
+  };
 
-  // signupUser = async (username, password, email, firstname, lastname, profile_pic_url) => {
-  //   const data = await Adapter.signupUser(username, password, email, firstname, lastname, profile_pic_url)
-  //   console.log(data)
-  //   this.getUserFromAPI()
-  //   this.fetchUsers()
-  // }
+  logoutUser = () => {
+    localStorage.removeItem('token');
+    this.setState({
+      currentUser: null
+    })
+  }
+
+  signupUser = async (password, email, firstname, lastname) => {
+    const data = await Adapter.signupUser(password, email, firstname, lastname);
+    if (data.token !== undefined) {
+      localStorage.setItem('token', data.token);
+    }
+    this.getUserFromAPI();
+  }
 
   // patchUserInfo = (email, firstname, lastname) => {
   //   Adapter.patchUserInfo(email, firstname, lastname)
   // }
 
-  // getUserFromAPI = async() => {
-  //   const data = await Adapter.getUserFromAPI()
-  //   this.setState({
-  //     currentUser: data
-  //   })
-  // }
+  getUserFromAPI = async() => {
+    const data = await Adapter.getUserFromAPI();
+    this.setState({
+      currentUser: data
+    })
+  }
 
-  // fetchUsers = async() => {
-  //   const data = await Adapter.fetchUsers()
-  //   this.setState({
-  //     users: data
-  //   })
-  // }
+  fetchGreyhounds = async() => {
+    const data = await Adapter.fetchGreyhounds()
+    this.setState({
+      greyhounds: data.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+      })
+    })
+  }
 
-  // fetchGreyhounds = async() => {
-  //   const data = await Adapter.fetchGreyhounds()
-  //   this.setState({
-  //     greyhounds: data.sort(function (a, b) {
-  //       return a.name.localeCompare(b.name);
-  //     })
-  //   })
-  // }
-
-  // handleClick = (info) => {
-  //   this.setState({selectedUser: info})
-  // }
-  //
   // componentDidMount(){
   //   const token = localStorage.getItem('token')
   //   if (!!token){
-  //     this.getUserFromAPI()
-  //     this.fetchUsers()
+  //     this.getUserFromAPI();
   //   }
   // }
 
   componentDidMount() {
+    const token = localStorage.getItem('token')
+    if (!!token){
+      this.getUserFromAPI();
+    }
+
     const { drizzle } = this.props;
 
     // subscribe to changes in the store
@@ -106,26 +104,35 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-          <Navbar />
-          <main>
-            <div className="main-container">
-              <Switch>
-                <Route path="/register" component={() => <Register drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} />}></Route>
-                <Route path="/profile" component={() => <Profile drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} />}></Route>
-                <Route path="/update" component={() => <Update currentUser={this.state.currentUser}/>}></Route>
-                <Route exact path="/" component={() => <Home currentUser={this.state.currentUser} />}></Route>
-            </Switch>
+    if (this.state.currentUser) {
+      return (
+        <div className="App">
+            <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser}/>
+            <main>
+              <div className="main-container">
+                <Switch>
+                  <Route exact path="/register" component={() => <Register drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} />}></Route>
+                  <Route exact path="/profile" component={() => <Profile drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} currentUserGreyhounds={this.state.currentUserGreyhounds}/>}></Route>
+                  <Route exact path="/update" component={() => <Update currentUser={this.state.currentUser}/>}></Route>
+                  <Route exact path="/" component={() => <Home currentUser={this.state.currentUser} />}></Route>
+              </Switch>
+              </div>
+            </main>
+            <div className="footer">
+              <p>Footer text</p>
             </div>
-          </main>
-          <div className="footer">
-            <p>Footer text</p>
-          </div>
-      </div>
-    );
-  }
+        </div>
+      );
+    }
 
+    else {
+      return (
+        <div className="login-page">
+          <LoginCollection login={this.loginUser} signup={this.signupUser} />
+        </div>
+      );
+    }
+  }
 }
 
 export default App;

@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
-      post '/login', to: 'auth#login'
-      post '/signup', to: 'auth#signup'
+      post '/login', to: 'auth#create'
+      post '/login', to: 'users#login'
+      post '/signup', to: 'users#create'
       get '/profile', to: 'users#profile'
 
       resources :greyhound_owners
