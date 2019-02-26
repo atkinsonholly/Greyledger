@@ -28,18 +28,43 @@ export default class Adapter extends Component {
     .then(data => {return data})
   }
 
-  static registerNewGreyhound = async (information) => {
+  static registerNewGreyhound = async (greyhound) => {
     return await fetch(API + '/greyhounds', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ information })
+      body: JSON.stringify({
+        name: greyhound.name,
+        left_ear: greyhound.left_ear,
+        right_ear: greyhound.right_ear,
+        sire: greyhound.sire,
+        sex: greyhound.sex,
+        birthdate: greyhound.birthdate,
+        status: greyhound.status,
+        distemper: greyhound.distemper,
+        viral_hepatitis: greyhound.viral_hepatitis,
+        leptospira_canicola: greyhound.leptospira_canicola,
+        leptospira_icterihaemorrhagiae: greyhound.leptospira_icterihaemorrhagiae,
+        parvovirus: greyhound.parvovirus
+      })
     })
     .then(resp => resp.json())
     .then(data => {return data})
   }
+
+  // name: params[:name],
+  // left_ear: params[:left_ear],
+  // right_ear: params[:right_ear],
+  // sire: params[:sire],
+  // birthdate: params[:birthdate],
+  // status: params[:status],
+  // distemper: params[:distemper],
+  // viral_hepatitis: params[:viral_hepatitis],
+  // leptospira_canicola: params[:leptospira_canicola],
+  // leptospira_icterihaemorrhagiae: params[:leptospira_icterihaemorrhagiae],
+  // parvovirus: params[:parvovirus])
 
   // static patchUserInfo = (email, firstname, lastname) => {
   //   fetch(API, {

@@ -9,6 +9,7 @@ class SetGreyhoundInformation extends React.Component {
       left_ear: null,
       right_ear: null,
       sex: "M",
+      sire: null,
       birthdate: null,
       distemper: null,
       leptospira_canicola: null,
@@ -33,19 +34,21 @@ class SetGreyhoundInformation extends React.Component {
     }
 
     this.props.registerNewGreyhound(this.state.greyhound)
+    //find owners, if can't find then create new owners
+    //add greyhound to user's greyhounds
 
-    // const { drizzle, drizzleState } = this.props;
-    // const contract = drizzle.contracts.NewGreyhound;
-    //
-    // const stackId = contract.methods["addGreyhound"].cacheSend({
-    //   from: drizzleState.accounts[0]
-    // });
-    //
-    // console.log(stackId)
-    // // save the `stackId` for later reference
-    // this.setState({
-    //   stackId
-    // });
+    const { drizzle, drizzleState } = this.props;
+    const contract = drizzle.contracts.NewGreyhound;
+
+    const stackId = contract.methods["addGreyhound"].cacheSend({
+      from: drizzleState.accounts[0]
+    });
+
+    console.log(stackId)
+    // save the `stackId` for later reference
+    this.setState({
+      stackId
+    });
   };
 
   handleChange = (event) => {
@@ -69,6 +72,9 @@ class SetGreyhoundInformation extends React.Component {
   render() {
       return (
         <div>
+          <div className="error">
+            {this.props.error !== null? <div><p>{this.props.error}</p></div> : null}
+          </div>
           <h2>Greyhound Registration</h2>
           <form onSubmit={this.setGreyHoundInformation}>
             <h3 className="greyhound_form_header">Greyhound Information</h3>
@@ -81,13 +87,19 @@ class SetGreyhoundInformation extends React.Component {
             <div>
               <label>
                 Earmarks (left):
-                <input type="text" name="name" placeholder="Enter adult ear mark" onChange={this.handleChange}/>
+                <input type="text" name="left_ear" placeholder="Enter adult ear mark" onChange={this.handleChange}/>
               </label>
             </div>
             <div>
               <label>
                 Earmarks (right):
-                <input type="text" name="name" placeholder="Enter litter ear mark" onChange={this.handleChange}/>
+                <input type="text" name="right_ear" placeholder="Enter litter ear mark" onChange={this.handleChange}/>
+              </label>
+            </div>
+            <div>
+              <label>
+                Sire:
+                <input type="text" name="sire" placeholder="Enter sire" onChange={this.handleChange}/>
               </label>
             </div>
             <div>
@@ -131,7 +143,7 @@ class SetGreyhoundInformation extends React.Component {
             <div>
               <label>
                 Parvovirus:
-                <input type="date" name="parvovirus" />
+                <input type="date" name="parvovirus" onChange={this.handleChange}/>
               </label>
             </div>
             <div>

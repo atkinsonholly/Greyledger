@@ -16,6 +16,7 @@ class Api::V1::GreyhoundsController < ApplicationController
       left_ear: params[:left_ear],
       right_ear: params[:right_ear],
       sire: params[:sire],
+      sex: params[:sex],
       birthdate: params[:birthdate],
       status: params[:status],
       distemper: params[:distemper],

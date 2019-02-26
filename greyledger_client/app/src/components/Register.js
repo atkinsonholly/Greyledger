@@ -38,6 +38,7 @@ class Register extends Component {
             drizzle={this.props.drizzle}
             drizzleState={this.props.drizzleState}
             registerNewGreyhound={this.props.registerNewGreyhound}
+            error={this.props.error}
           />
           <div><Link to="/profile">Close</Link></div>
       </div>
