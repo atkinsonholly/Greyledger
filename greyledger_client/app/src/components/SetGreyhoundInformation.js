@@ -4,45 +4,73 @@ class SetGreyhoundInformation extends React.Component {
 
   state = {
     stackId: null,
-    sex: "M",
+    greyhound: {
+      name: null,
+      left_ear: null,
+      right_ear: null,
+      sex: "M",
+      birthdate: null,
+      distemper: null,
+      leptospira_canicola: null,
+      leptospira_icterihaemorrhagiae: null,
+      viral_hepatitis: null,
+      parvovirus: null,
+      status: "Initial registration"
+    },
+    owners: {
+      owner_1: null,
+      owner_2: null,
+      owner_3: null,
+      owner_4: null
+    },
     isAccepted: null
   };
 
   setGreyHoundInformation = (event) => {
     event.preventDefault()
-    const { drizzle, drizzleState } = this.props;
-    const contract = drizzle.contracts.NewGreyhound;
+    if (this.state.isAccepted === false) {
+      alert('You must accept the Terms and Conditions to register a greyhound')
+    }
 
-    const stackId = contract.methods["addGreyhound"].cacheSend({
-      from: drizzleState.accounts[0]
-    });
+    this.props.registerNewGreyhound(this.state.greyhound)
 
-    console.log(stackId)
-    // save the `stackId` for later reference
-    this.setState({
-      stackId
-
-    });
+    // const { drizzle, drizzleState } = this.props;
+    // const contract = drizzle.contracts.NewGreyhound;
+    //
+    // const stackId = contract.methods["addGreyhound"].cacheSend({
+    //   from: drizzleState.accounts[0]
+    // });
+    //
+    // console.log(stackId)
+    // // save the `stackId` for later reference
+    // this.setState({
+    //   stackId
+    // });
   };
 
   handleChange = (event) => {
+    event.persist()
     if (event.target.type === "checkbox") {
-      this.setState({
+      this.setState((prevState) => ({
+        ...prevState,
         [event.target.name]: event.target.checked
       })
-    }
+    )}
     else {
-      this.setState({
-        [event.target.name]: event.target.value
+      this.setState((prevState) => ({
+        greyhound: {
+          ...prevState.greyhound,
+          [event.target.name]: event.target.value
+        }
       })
-    }
+    )}
   }
 
   render() {
       return (
         <div>
           <h2>Greyhound Registration</h2>
-          <form>
+          <form onSubmit={this.setGreyHoundInformation}>
             <h3 className="greyhound_form_header">Greyhound Information</h3>
             <div>
               <label>
@@ -107,15 +135,80 @@ class SetGreyhoundInformation extends React.Component {
               </label>
             </div>
             <div>
+              <h3>Owner 1</h3>
+              <div>
+                <label> First Name
+                  <input type="text" name="owner_1_first_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Last Name
+                  <input type="text" name="owner_1_last_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Address
+                  <input type="text" name="owner_1_address" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <h3>Owner 2</h3>
+              <div>
+                <label> First Name
+                  <input type="text" name="owner_2_first_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Last Name
+                  <input type="text" name="owner_2_last_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Address
+                  <input type="text" name="owner_2_address" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <h3>Owner 3</h3>
+              <div>
+                <label> First Name
+                  <input type="text" name="owner_3_first_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Last Name
+                  <input type="text" name="owner_3_last_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Address
+                  <input type="text" name="owner_3_address" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <h3>Owner 4</h3>
+              <div>
+                <label> First Name
+                  <input type="text" name="owner_4_first_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Last Name
+                  <input type="text" name="owner_4_last_name" onChange={this.handleChange}/>
+                </label>
+              </div>
+              <div>
+                <label> Address
+                  <input type="text" name="owner_4_address" onChange={this.handleChange}/>
+                </label>
+              </div>
+            </div>
+            <div>
+              <h3>Submit greyhound</h3>
               <label>
                 Accept Terms and Conditions:
                 <input type="checkbox" name="isAccepted" checked={this.state.isAccepted} onChange={this.handleChange} />
               </label>
             </div>
-
-
+            <input type="submit" value="Submit this greyhound" />
           </form>
-          <input type="submit" value="Submit this greyhound" onSubmit={this.setGreyHoundInformation}/>
         </div>
       );
     }

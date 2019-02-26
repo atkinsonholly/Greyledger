@@ -37,6 +37,7 @@ class Register extends Component {
           <SetGreyhoundInformation
             drizzle={this.props.drizzle}
             drizzleState={this.props.drizzleState}
+            registerNewGreyhound={this.props.registerNewGreyhound}
           />
           <div><Link to="/profile">Close</Link></div>
       </div>

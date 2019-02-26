@@ -84,6 +84,14 @@ class App extends Component {
     })
   }
 
+  registerNewGreyhound = async(information) => {
+    const data = await Adapter.registerNewGreyhound(information);
+    console.log(data)
+    if (data.error) {
+      this.setState({error: data.exception})
+    }
+  }
+
   componentDidMount() {
     const token = localStorage.getItem('token')
     if (!!token){
@@ -115,7 +123,7 @@ class App extends Component {
             <main>
               <div className="main-container">
                 <Switch>
-                  <Route exact path="/register" component={() => <Register drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} />}></Route>
+                  <Route exact path="/register" component={() => <Register drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} registerNewGreyhound={this.registerNewGreyhound}/>}></Route>
                   <Route exact path="/profile" component={() => <Profile drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} currentUserGreyhounds={this.state.currentUserGreyhounds}/>}></Route>
                   <Route exact path="/update" component={() => <Update currentUser={this.state.currentUser}/>}></Route>
                   <Route exact path="/" component={() => <Home currentUser={this.state.currentUser} />}></Route>

@@ -28,6 +28,19 @@ export default class Adapter extends Component {
     .then(data => {return data})
   }
 
+  static registerNewGreyhound = async (information) => {
+    return await fetch(API + '/greyhounds', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ information })
+    })
+    .then(resp => resp.json())
+    .then(data => {return data})
+  }
+
   // static patchUserInfo = (email, firstname, lastname) => {
   //   fetch(API, {
   //     method: 'PATCH',
