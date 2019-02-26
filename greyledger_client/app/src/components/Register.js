@@ -34,7 +34,6 @@ class Register extends Component {
 
     if (this.state.addGreyhound === true) return (
       <div className="Registration">
-          [New greyhound form]
           <SetGreyhoundInformation
             drizzle={this.props.drizzle}
             drizzleState={this.props.drizzleState}

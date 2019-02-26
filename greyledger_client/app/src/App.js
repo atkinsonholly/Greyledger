@@ -17,41 +17,51 @@ class App extends Component {
     loading: true,
     drizzleState: null,
     greyhounds: [],
-    currentUser: null
+    currentUser: null,
+    currentUserGreyhounds: [],
+    error: null
   };
 
   loginUser = async (email, password) => {
     const data = await Adapter.loginUser(email, password)
-      if (data !== undefined) {
-        localStorage.setItem('token', data.token);
-        const user = this.getUserFromAPI();
-        const greyhounds = this.fetchGreyhounds();
-        this.setState({
-          currentUser: user,
-          currentUserGreyhounds: data.user.greyhounds,
-          greyhounds: greyhounds
-        })
-      }
-      else if (data === undefined) {
-        // Need to prevent user from being given an token that is 'undefined'
-        // Need to render an error message to the screen. Also for signup 
-        return
-      }
+    console.log(data)
+    if (data.message) {
+      this.setState({error: data.message})
+    }
+    else if (data !== undefined) {
+      localStorage.setItem('token', data.token);
+      const user = this.getUserFromAPI();
+      const greyhounds = this.fetchGreyhounds();
+      this.setState({
+        currentUser: user,
+        currentUserGreyhounds: data.user.greyhounds,
+        greyhounds: greyhounds
+      })
+    }
   };
 
   logoutUser = () => {
     localStorage.removeItem('token');
     this.setState({
-      currentUser: null
+      currentUser: null,
+      currentUserGreyhounds: [],
+      error: null
     })
   }
 
   signupUser = async (password, email, firstname, lastname) => {
     const data = await Adapter.signupUser(password, email, firstname, lastname);
+    console.log(data)
+    if (data.error) {
+      this.setState({error: data.exception})
+    }
     if (data.token !== undefined) {
       localStorage.setItem('token', data.token);
+      const user = this.getUserFromAPI();
+      this.setState({
+        currentUser: user
+      })
     }
-    this.getUserFromAPI();
   }
 
   // patchUserInfo = (email, firstname, lastname) => {
@@ -74,13 +84,6 @@ class App extends Component {
     })
   }
 
-  // componentDidMount(){
-  //   const token = localStorage.getItem('token')
-  //   if (!!token){
-  //     this.getUserFromAPI();
-  //   }
-  // }
-
   componentDidMount() {
     const token = localStorage.getItem('token')
     if (!!token){
@@ -93,7 +96,6 @@ class App extends Component {
     this.unsubscribe = drizzle.store.subscribe(() => {
       // every time the store updates, grab the state from drizzle
       const drizzleState = drizzle.store.getState();
-
       // check to see if it's ready, if so, update local component state
       if (drizzleState.drizzleStatus.initialized) {
         this.setState({ loading: false, drizzleState });
@@ -130,7 +132,7 @@ class App extends Component {
     else {
       return (
         <div className="login-page">
-          <LoginCollection login={this.loginUser} signup={this.signupUser} />
+          <LoginCollection login={this.loginUser} signup={this.signupUser} error={this.state.error}/>
         </div>
       );
     }

@@ -17,7 +17,6 @@ export default class Adapter extends Component {
   }
 
   static signupUser = async (password, email, firstname, lastname) => {
-    console.log(password)
     return await fetch(API + '/signup', {
       method: 'POST',
       headers: {
@@ -35,7 +34,7 @@ export default class Adapter extends Component {
   //     headers: {
   //       'Content-Type': 'application/json',
   //     },
-  //     body: JSON.stringify({ email: email, firstname: firstname, lastname: lastname })
+  //     body: JSON.stringify({ email: email, first_name: firstname, last_name: lastname })
   //   })
   //     .then(resp => resp.json())
   // }

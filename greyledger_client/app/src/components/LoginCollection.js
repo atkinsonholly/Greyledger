@@ -11,10 +11,10 @@ class LoginCollection extends Component {
           password: null
       },
       newUser: {
-          email: null,
-          password: null,
-          firstname: null,
-          lastname: null
+          email: '',
+          password: '',
+          firstname: '',
+          lastname: ''
       }
   }
 
@@ -54,12 +54,12 @@ class LoginCollection extends Component {
   render() {
     if (this.state.hasAccount) {
       return(
-          <Login handleChange={this.handleChange} logininfo={this.state} toggleLogin={this.toggleLogin} login={this.handleSubmit}/>
+          <Login handleChange={this.handleChange} logininfo={this.state} toggleLogin={this.toggleLogin} login={this.handleSubmit} error={this.props.error}/>
       )
     }
     else {
       return(
-          <Signup handleChange={this.handleChange} signupinfo={this.state.newUser} toggleLogin={this.toggleLogin} signup={this.handleSubmit} />
+          <Signup handleChange={this.handleChange} signupinfo={this.state.newUser} toggleLogin={this.toggleLogin} signup={this.handleSubmit} error={this.props.error}/>
       )
     }
   }
