@@ -1,23 +1,15 @@
 import React from "react";
-import NewGreyhoundForm from './forms/NewGreyhoundForm'
+import UpdateGreyhoundForm from './forms/UpdateGreyhoundForm'
 
-class SetGreyhoundInformation extends React.Component {
+class UpdateGreyhoundInformation extends React.Component {
 
   state = {
     stackId: null,
     greyhound: {
       name: null,
-      left_ear: null,
       right_ear: null,
-      sex: "M",
-      sire: null,
-      birthdate: null,
-      distemper: null,
-      leptospira_canicola: null,
-      leptospira_icterihaemorrhagiae: null,
-      viral_hepatitis: null,
-      parvovirus: null,
-      status: "Initial registration"
+      left_ear: null,
+      status: null
     },
     owners: {
       owner_1: null,
@@ -28,15 +20,15 @@ class SetGreyhoundInformation extends React.Component {
     isAccepted: null
   };
 
-  saveGreyhoundToDB = async (event) => {
+  sendUpdateToDB = async (event) => {
     event.preventDefault()
     if (this.state.isAccepted === false || this.state.isAccepted === null) {
-      alert('You must accept the Terms and Conditions to register a greyhound')
+      alert('You must accept the Terms and Conditions to update this record')
       return
     }
     //check Ruby validation all working correctly
     //register this greyhound
-    const response = await this.props.registerNewGreyhound(this.state.greyhound)
+    const response = await this.props.updateGreyhound(this.state.greyhound)
     if (response && response.exception) return
     if (response === undefined) return
 
@@ -45,24 +37,24 @@ class SetGreyhoundInformation extends React.Component {
 
     //do not proceed to blockchain if greyhound, owners or users cannot be registered
     else if (!response.exception) {
-      this.saveGreyhoundToBlockchain()
+      this.sendUpdateToBlockchain()
     }
     this.props.turnOnSubmitted()
   }
 
-  saveGreyhoundToBlockchain = () => {
+  sendUpdateToBlockchain = () => {
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.NewGreyhound;
 
-    const stackId = contract.methods["addGreyhound"].cacheSend({
-      from: drizzleState.accounts[0]
-    });
-
-    console.log(stackId)
-    // save the `stackId` for later reference
-    this.setState({
-      stackId
-    });
+    // const stackId = contract.methods["addGreyhound"].cacheSend({
+    //   from: drizzleState.accounts[0]
+    // });
+    //
+    // console.log(stackId)
+    // // save the `stackId` for later reference
+    // this.setState({
+    //   stackId
+    // });
   };
 
   handleChange = (event) => {
@@ -89,8 +81,8 @@ class SetGreyhoundInformation extends React.Component {
         <div className="error">
           {this.props.error !== null? <div><p>{this.props.error}</p></div> : null}
         </div>
-        <NewGreyhoundForm
-          saveGreyhoundToDB={this.saveGreyhoundToDB}
+        <UpdateGreyhoundForm
+          sendUpdateToDB={this.sendUpdateToDB}
           handleChange={this.handleChange}
           isAccepted={this.state.isAccepted}
           />
@@ -98,4 +90,4 @@ class SetGreyhoundInformation extends React.Component {
     );
   }
 }
-export default SetGreyhoundInformation;
+export default UpdateGreyhoundInformation;

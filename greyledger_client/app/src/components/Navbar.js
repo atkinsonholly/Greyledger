@@ -9,8 +9,8 @@ const Navbar = (props) => {
             </div>
             <div className="nav-li-container">
               <Link to="/"><li className="link" onClick={props.logoutUser}>Log Out</li></Link>
-              <Link to="/profile"><li className="link">Profile</li></Link>
-              <Link to="/"><li className="link">Home</li></Link>
+              <Link to="/profile"><li className="link" onClick={props.turnOffSubmitted} >Profile</li></Link>
+              <Link to="/"><li className="link" onClick={props.turnOffSubmitted}>Home</li></Link>
             </div>
         </nav>
     );

@@ -17,9 +17,12 @@ class App extends Component {
     loading: true,
     drizzleState: null,
     greyhounds: [],
+    users: [],
+    owners: [],
     currentUser: null,
     currentUserGreyhounds: [],
-    error: null
+    error: null,
+    submitted: false
   };
 
   loginUser = async (email, password) => {
@@ -32,10 +35,14 @@ class App extends Component {
       localStorage.setItem('token', data.token);
       const user = this.getUserFromAPI();
       const greyhounds = this.fetchGreyhounds();
+      const users = this.fetchUsers();
+      const owners = this.fetchOwners();
       this.setState({
         currentUser: user,
         currentUserGreyhounds: data.user.greyhounds,
         greyhounds: greyhounds,
+        users: users,
+        owners: owners,
         error: null
       })
     }
@@ -46,7 +53,8 @@ class App extends Component {
     this.setState({
       currentUser: null,
       currentUserGreyhounds: [],
-      error: null
+      error: null,
+      submitted: false
     })
   }
 
@@ -59,8 +67,14 @@ class App extends Component {
     if (data.token !== undefined) {
       localStorage.setItem('token', data.token);
       const user = this.getUserFromAPI();
+      const greyhounds = this.fetchGreyhounds();
+      const users = this.fetchUsers();
+      const owners = this.fetchOwners();
       this.setState({
         currentUser: user,
+        greyhounds: greyhounds,
+        users: users,
+        owners: owners,
         error: null
       })
     }
@@ -86,13 +100,49 @@ class App extends Component {
     })
   }
 
+  fetchUsers = async() => {
+    const data = await Adapter.fetchUsers()
+    this.setState({
+      users: data.sort(function (a, b) {
+        return a.last_name.localeCompare(b.last_name);
+      })
+    })
+  }
+
+  fetchOwners = async() => {
+    const data = await Adapter.fetchOwners()
+    this.setState({
+      owners: data.sort(function (a, b) {
+        return a.last_name.localeCompare(b.last_name);
+      })
+    })
+  }
+
   registerNewGreyhound = async(greyhound) => {
-    console.log(greyhound)
     const data = await Adapter.registerNewGreyhound(greyhound);
-    console.log(data)
     if (data.error) {
+      alert('This form contains errors and cannot be submitted')
       this.setState({error: data.exception})
+      return
     }
+    return data
+  }
+
+  turnOffSubmitted = () => {
+    this.setState({
+      submitted: false
+    })
+  }
+
+  turnOnSubmitted = () => {
+    this.setState({
+      submitted: true,
+      errors: null
+    })
+  }
+
+  updateGreyhound = async(greyhound) => {
+
   }
 
   componentDidMount() {
@@ -100,16 +150,17 @@ class App extends Component {
     if (!!token){
       this.getUserFromAPI();
     }
-
     const { drizzle } = this.props;
-
     // subscribe to changes in the store
     this.unsubscribe = drizzle.store.subscribe(() => {
       // every time the store updates, grab the state from drizzle
       const drizzleState = drizzle.store.getState();
       // check to see if it's ready, if so, update local component state
       if (drizzleState.drizzleStatus.initialized) {
-        this.setState({ loading: false, drizzleState });
+        this.setState({
+          loading: false,
+          drizzleState
+        });
       }
     });
   }
@@ -122,12 +173,37 @@ class App extends Component {
     if (this.state.currentUser) {
       return (
         <div className="App">
-            <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser}/>
+            <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser} turnOffSubmitted={this.turnOffSubmitted}/>
             <main>
               <div className="main-container">
                 <Switch>
-                  <Route exact path="/register" component={() => <Register drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} registerNewGreyhound={this.registerNewGreyhound} error={this.state.error}/>}></Route>
-                  <Route exact path="/profile" component={() => <Profile drizzle={this.props.drizzle} currentUser={this.state.currentUser} loading={this.state.loading} drizzleState={this.state.drizzleState} currentUserGreyhounds={this.state.currentUserGreyhounds}/>}></Route>
+                  <Route exact path="/register" component={() =>
+                    <Register
+                      drizzle={this.props.drizzle}
+                      currentUser={this.state.currentUser}
+                      loading={this.state.loading}
+                      drizzleState={this.state.drizzleState}
+                      registerNewGreyhound={this.registerNewGreyhound}
+                      users={this.state.users}
+                      owners={this.state.owners}
+                      error={this.state.error}
+                      submitted={this.state.submitted}
+                      turnOffSubmitted={this.turnOffSubmitted}
+                      turnOnSubmitted={this.turnOnSubmitted}
+                      updateGreyhound={this.updateGreyhound}
+                    />}
+                  >
+                  </Route>
+                  <Route exact path="/profile" component={() =>
+                    <Profile
+                      drizzle={this.props.drizzle}
+                      currentUser={this.state.currentUser}
+                      loading={this.state.loading}
+                      drizzleState={this.state.drizzleState}
+                      currentUserGreyhounds={this.state.currentUserGreyhounds}
+                    />}
+                  >
+                  </Route>
                   <Route exact path="/update" component={() => <Update currentUser={this.state.currentUser}/>}></Route>
                   <Route exact path="/" component={() => <Home currentUser={this.state.currentUser} />}></Route>
               </Switch>

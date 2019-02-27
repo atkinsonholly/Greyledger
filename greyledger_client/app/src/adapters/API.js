@@ -54,18 +54,6 @@ export default class Adapter extends Component {
     .then(data => {return data})
   }
 
-  // name: params[:name],
-  // left_ear: params[:left_ear],
-  // right_ear: params[:right_ear],
-  // sire: params[:sire],
-  // birthdate: params[:birthdate],
-  // status: params[:status],
-  // distemper: params[:distemper],
-  // viral_hepatitis: params[:viral_hepatitis],
-  // leptospira_canicola: params[:leptospira_canicola],
-  // leptospira_icterihaemorrhagiae: params[:leptospira_icterihaemorrhagiae],
-  // parvovirus: params[:parvovirus])
-
   // static patchUserInfo = (email, firstname, lastname) => {
   //   fetch(API, {
   //     method: 'PATCH',
@@ -79,6 +67,26 @@ export default class Adapter extends Component {
 
   static fetchGreyhounds = async() => {
     const response = await fetch(API + "/greyhounds", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    const json = await response.json()
+    return json
+  }
+
+  static fetchUsers = async() => {
+    const response = await fetch(API + "/users", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    const json = await response.json()
+    return json
+  }
+
+  static fetchOwners = async() => {
+    const response = await fetch(API + "/owners", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
