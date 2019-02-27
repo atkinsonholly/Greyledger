@@ -20,10 +20,6 @@ class SetGreyhoundInformation extends React.Component {
       status: "Initial registration"
     },
     owners: {
-      owner_1: null,
-      owner_2: null,
-      owner_3: null,
-      owner_4: null
     },
     isAccepted: null
   };
@@ -34,23 +30,21 @@ class SetGreyhoundInformation extends React.Component {
       alert('You must accept the Terms and Conditions to register a greyhound')
       return
     }
-    //check Ruby validation all working correctly
-    //register this greyhound
-    const response = await this.props.registerNewGreyhound(this.state.greyhound)
-    if (response && response.exception) return
-    if (response === undefined) return
-
-    //find owners, if can't find then create new owners
-    //add greyhound to user's greyhounds
-
-    //do not proceed to blockchain if greyhound, owners or users cannot be registered
-    else if (!response.exception) {
-      this.saveGreyhoundToBlockchain()
+    //register this form to DB
+    const response = await this.props.registerNewGreyhound(this.state.greyhound, this.state.owners, this.props.currentUser.id)
+    // error handling
+    if (response && response.exception) return false
+    if (response === undefined) return false
+    if (!response.exception) {
+      //only proceed to blockchain if greyhound, owners and users can be registered
+      this.saveGreyhoundToBlockchain(response)
     }
+    // if successful, show 'Thank you for your submission' message
     this.props.turnOnSubmitted()
+    return true
   }
 
-  saveGreyhoundToBlockchain = () => {
+  saveGreyhoundToBlockchain = (response) => {
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.NewGreyhound;
 
@@ -71,6 +65,14 @@ class SetGreyhoundInformation extends React.Component {
       this.setState((prevState) => ({
         ...prevState,
         [event.target.name]: event.target.checked
+      })
+    )}
+    else if (event.target.name.includes('owner')){
+      this.setState((prevState) => ({
+        owners: {
+          ...prevState.owners,
+          [event.target.name]: event.target.value
+        }
       })
     )}
     else {

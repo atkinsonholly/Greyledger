@@ -20,7 +20,6 @@ class App extends Component {
     users: [],
     owners: [],
     currentUser: null,
-    currentUserGreyhounds: [],
     error: null,
     submitted: false
   };
@@ -39,7 +38,6 @@ class App extends Component {
       const owners = this.fetchOwners();
       this.setState({
         currentUser: user,
-        currentUserGreyhounds: data.user.greyhounds,
         greyhounds: greyhounds,
         users: users,
         owners: owners,
@@ -118,8 +116,8 @@ class App extends Component {
     })
   }
 
-  registerNewGreyhound = async(greyhound) => {
-    const data = await Adapter.registerNewGreyhound(greyhound);
+  registerNewGreyhound = async(greyhound, owners, currentUser) => {
+    const data = await Adapter.registerNewGreyhound(greyhound, owners, currentUser);
     if (data.error) {
       alert('This form contains errors and cannot be submitted')
       this.setState({error: data.exception})
@@ -141,8 +139,14 @@ class App extends Component {
     })
   }
 
-  updateGreyhound = async(greyhound) => {
-
+  updateGreyhound = async(greyhound, owners, currentUser) => {
+    const data = await Adapter.updateGreyhound(greyhound, owners, currentUser);
+    if (data.error) {
+      alert('This form contains errors and cannot be submitted')
+      this.setState({error: data.exception})
+      return
+    }
+    return data
   }
 
   componentDidMount() {
@@ -200,7 +204,6 @@ class App extends Component {
                       currentUser={this.state.currentUser}
                       loading={this.state.loading}
                       drizzleState={this.state.drizzleState}
-                      currentUserGreyhounds={this.state.currentUserGreyhounds}
                     />}
                   >
                   </Route>

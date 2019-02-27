@@ -29,7 +29,7 @@ class Profile extends Component {
           </div>
           <div>
             <h3>Your greyhounds:</h3>
-            {this.props.currentUserGreyhounds.map(greyhound => <Greyhound key={greyhound.id} greyhound={greyhound}/>)}
+            {this.props.currentUser.greyhounds.map(greyhound => <Greyhound key={greyhound.id} greyhound={greyhound}/>)}
           </div>
           <div><Link to="/register">Add or update Greyhound details</Link></div>
           <div><Link to="/update">Update personal details</Link></div>

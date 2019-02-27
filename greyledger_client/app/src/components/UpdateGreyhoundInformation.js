@@ -6,16 +6,13 @@ class UpdateGreyhoundInformation extends React.Component {
   state = {
     stackId: null,
     greyhound: {
-      name: null,
+      new_name: null,
+      previous_name: null,
       right_ear: null,
       left_ear: null,
-      status: null
+      status: "Greyhound has a new name - no change of ownership"
     },
     owners: {
-      owner_1: null,
-      owner_2: null,
-      owner_3: null,
-      owner_4: null
     },
     isAccepted: null
   };
@@ -23,26 +20,25 @@ class UpdateGreyhoundInformation extends React.Component {
   sendUpdateToDB = async (event) => {
     event.preventDefault()
     if (this.state.isAccepted === false || this.state.isAccepted === null) {
-      alert('You must accept the Terms and Conditions to update this record')
+      alert('You must accept the Terms and Conditions to register a greyhound')
       return
     }
-    //check Ruby validation all working correctly
-    //register this greyhound
-    const response = await this.props.updateGreyhound(this.state.greyhound)
-    if (response && response.exception) return
-    if (response === undefined) return
+    //register this form to DB
+    const response = await this.props.updateGreyhound(this.state.greyhound, this.state.owners, this.props.currentUser.id)
+    // error handling
+    if (response && response.exception) return false
+    if (response === undefined) return false
+    if (!response.exception) {
 
-    //find owners, if can't find then create new owners
-    //add greyhound to user's greyhounds
-
-    //do not proceed to blockchain if greyhound, owners or users cannot be registered
-    else if (!response.exception) {
-      this.sendUpdateToBlockchain()
+      //only proceed to blockchain if greyhound can be updated
+      this.sendUpdateToBlockchain(response)
     }
+    // if successful, show 'Thank you for your submission' message
     this.props.turnOnSubmitted()
+    return true
   }
 
-  sendUpdateToBlockchain = () => {
+  sendUpdateToBlockchain = (response) => {
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.NewGreyhound;
 
@@ -63,6 +59,14 @@ class UpdateGreyhoundInformation extends React.Component {
       this.setState((prevState) => ({
         ...prevState,
         [event.target.name]: event.target.checked
+      })
+    )}
+    else if (event.target.name.includes('owner')){
+      this.setState((prevState) => ({
+        owners: {
+          ...prevState.owners,
+          [event.target.name]: event.target.value
+        }
       })
     )}
     else {

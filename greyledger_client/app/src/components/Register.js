@@ -18,18 +18,18 @@ class Register extends Component {
     })
   }
 
+  toggleUpdateGreyhound = () => {
+    this.setState({
+      addGreyhound: false,
+      updateGreyhound: true
+    })
+  }
+
   addAnotherGreyhound = () => {
     this.props.turnOffSubmitted()
     this.setState({
       addGreyhound: false,
       updateGreyhound: false
-    })
-  }
-
-  toggleUpdateGreyhound = () => {
-    this.setState({
-      addGreyhound: false,
-      updateGreyhound: true
     })
   }
 
@@ -41,6 +41,7 @@ class Register extends Component {
       </div>
     );
 
+    // Register a new greyhound
     else if (this.state.addGreyhound === true && this.props.submitted === false) return (
       <div className="Registration">
         <SetGreyhoundInformation
@@ -51,26 +52,30 @@ class Register extends Component {
           owners={this.props.owners}
           error={this.props.error}
           turnOnSubmitted={this.props.turnOnSubmitted}
+          currentUser={this.props.currentUser}
         />
         <div><Link to="/profile">Close</Link></div>
       </div>
     );
 
+    // Update an existing greyhound
     else if (this.state.updateGreyhound === true && this.props.submitted === false) return (
       <div className="UpdateGreyhound">
         <UpdateGreyhoundInformation
           drizzle={this.props.drizzle}
           drizzleState={this.props.drizzleState}
-          registerNewGreyhound={this.props.updateGreyhound}
+          updateGreyhound={this.props.updateGreyhound}
           users={this.props.users}
           owners={this.props.owners}
           error={this.props.error}
           turnOnSubmitted={this.props.turnOnSubmitted}
+          currentUser={this.props.currentUser}
         />
         <div><Link to="/profile">Close</Link></div>
       </div>
     );
 
+    // After submission
     else if (this.props.submitted === true) return (
       <div>
         Thank you for your submission
@@ -79,10 +84,11 @@ class Register extends Component {
       </div>
     )
 
+    // New selection
     else return (
       <div>
-        <button onClick={this.toggleAddGreyhound}>Add New Greyhound</button>
-        <button onClick={this.toggleUpdateGreyhound}>Update Existing Greyhound</button>
+        <button onClick={this.toggleAddGreyhound}>Add a new greyhound</button>
+        <button onClick={this.toggleUpdateGreyhound}>Update an existing greyhound</button>
         <div><Link to="/profile">Close</Link></div>
       </div>
     );

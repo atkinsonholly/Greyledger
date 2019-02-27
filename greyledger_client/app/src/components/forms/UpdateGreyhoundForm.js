@@ -4,22 +4,29 @@ const UpdateGreyhoundForm = props => {
   return (
     <div>
     <h2>Change of Registered Ownership, or Change of Greyhound's name</h2>
-    <form onSubmit={props.saveGreyhoundToDB}>
+    <form onSubmit={props.sendUpdateToDB}>
       <h3 className="greyhound_form_header">Greyhound Information</h3>
       <div>
         Status:
         <select name="status" onChange={props.handleChange}>
+          <option value="nameChange">Greyhound has a new name - no change of ownership</option>
           <option value="retired">Greyhound has retired - no change of ownership</option>
-          <option value="changeOfOwnership">Greyhound still racing - notification of new ownership</option>
-          <option value="changeOfOwnershipRetired">Greyhound retired - notification of new ownership</option>
+          <option value="changeOfOwnership">Greyhound still racing - notification of new ownership / name</option>
+          <option value="changeOfOwnershipRetired">Greyhound retired - notification of new ownership / name</option>
           <option value="euthanised">Greyhound euthanised</option>
           <option value="naturalDeath">Greyhound death from natural causes</option>
         </select>
       </div>
       <div>
         <label>
-          Enter greyhound's name:
-          <input type="text" name="name" placeholder="Max. 16 characters" onChange={props.handleChange}/>
+          Enter greyhound's new name (if changed):
+          <input type="text" name="new_name" placeholder="Only include if the name has changed" onChange={props.handleChange}/>
+        </label>
+      </div>
+      <div>
+        <label>
+          Enter greyhound's (previous) name:
+          <input type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/>
         </label>
       </div>
       <div>

@@ -11,7 +11,10 @@ Rails.application.routes.draw do
       resources :greyhound_owners
       resources :user_greyhounds
       resources :owners
+
       resources :greyhounds
+      post '/greyhounds/register', to: 'greyhounds#register'
+      post '/greyhounds/register_update', to: 'greyhounds#register_update'
     end
   end
 end
