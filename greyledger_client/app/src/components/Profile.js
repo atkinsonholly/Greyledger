@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import ReadContractOutput from "./ReadContractOutput";
+import "../styling/profile.css"
 
 // Show currentUser's profile
 class Profile extends Component {
@@ -9,24 +10,31 @@ class Profile extends Component {
     return (
       <div className="profile">
         <div className="profile-container">
-          <div>
-            <h2>Welcome, <span>{this.props.currentUser.first_name}</span></h2>
+          <div className="greyledger-logo">
+            <img src="images/GREYLEDGER.png" alt="logo"/>
+          </div>
+          <div className="profile-welcome">
+            <h1>Welcome, <span>{this.props.currentUser.first_name}</span></h1>
           </div>
           <div>
-              <h3>There are:</h3>
+            <h3>What would you like to do?</h3>
+          </div>
+          <div className="profile-link"><Link to="/register" className="link">Register or update greyhound</Link></div>
+          <div className="profile-link"><Link to="/" className="link">Close</Link></div>
+          <div className="profile-blockchain">
+              <h3>Blockchain:</h3>
                 {this.props.loading && this.props.drizzleState === null ?
                   <div>"Loading Drizzle..."</div>
                 :
-                  <div>
+                  <div classname="profile-blockchain">
                     <ReadContractOutput
                       drizzle={this.props.drizzle}
                       drizzleState={this.props.drizzleState}
                     />
                   </div>
                 }
-                Registered on the blockchain
           </div>
-          <div>
+          <div className="profile-greyhounds">
             <h3>Your greyhounds:</h3>
             {this.props.currentUser.greyhounds
               .sort(function (a, b) { return a.name.localeCompare(b.name) })
@@ -39,8 +47,7 @@ class Profile extends Component {
               )
             }
           </div>
-          <div><Link to="/register" className="link">Register or update greyhound</Link></div>
-          <div><Link to="/" className="link">Close</Link></div>
+
         </div>
       </div>
     );

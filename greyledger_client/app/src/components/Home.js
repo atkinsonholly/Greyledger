@@ -8,7 +8,7 @@ class Home extends Component {
     return (
       <div className="home">
           <div className="home-logo-container">
-            <h1>WELCOME   TO   GREYLEDGER</h1>
+            <h1>WELCOME   TO  GREYLEDGER</h1>
           </div>
           <div className="home-text-container">
             <div className="home-header">

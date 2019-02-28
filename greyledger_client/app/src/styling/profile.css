@@ -1,0 +1,45 @@
+.profile {
+  margin: 0;
+  padding: 0;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-top: 3px solid grey;
+}
+
+.profile-container {
+  padding-left: 50px;
+}
+
+.greyledger-logo {
+  padding-top: 5px;
+}
+
+.greyledger-logo img {
+  display: block;
+  margin-left: auto;
+  margin-right:auto;
+}
+
+.profile-welcome {
+  padding-bottom: 10px;
+}
+
+.profile-welcome span {
+  color: #d80c9f;
+}
+
+.profile-link {
+  padding: 5px;
+  margin-left: 20px;
+}
+
+.profile-blockchain p {
+  padding: 5px;
+  margin-left: 20px;
+}
+
+.profile-greyhounds li{
+  padding: 5px;
+  margin-left: 20px;
+}
