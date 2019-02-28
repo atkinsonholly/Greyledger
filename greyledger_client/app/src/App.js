@@ -10,6 +10,7 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import Update from './components/Update';
 import LoginCollection from './components/LoginCollection';
+import GreyhoundShow from "./components/GreyhoundShow";
 
 class App extends Component {
 
@@ -21,7 +22,8 @@ class App extends Component {
     owners: [],
     currentUser: null,
     error: null,
-    submitted: false
+    submitted: false,
+    selectedGreyhound: null
   };
 
   loginUser = async (email, password) => {
@@ -101,18 +103,15 @@ class App extends Component {
   fetchUsers = async() => {
     const data = await Adapter.fetchUsers()
     this.setState({
-      users: data.sort(function (a, b) {
-        return a.last_name.localeCompare(b.last_name);
-      })
+      users: data
     })
   }
 
   fetchOwners = async() => {
     const data = await Adapter.fetchOwners()
+    console.log(data)
     this.setState({
-      owners: data.sort(function (a, b) {
-        return a.last_name.localeCompare(b.last_name);
-      })
+      owners: data
     })
   }
 
@@ -123,6 +122,15 @@ class App extends Component {
       this.setState({error: data.exception})
       return
     }
+    // const newGreyhounds = this.fetchGreyhounds();
+    // const newUsers = this.fetchUsers();
+    // const newOwners = this.fetchOwners();
+    // this.setState({
+    //   greyhounds: newGreyhounds,
+    //   users: newUsers,
+    //   owners: newOwners,
+    //   submitted: true
+    // })
     return data
   }
 
@@ -146,7 +154,27 @@ class App extends Component {
       this.setState({error: data.exception})
       return
     }
+    const newGreyhounds = this.fetchGreyhounds();
+    const newUsers = this.fetchUsers();
+    const newOwners = this.fetchOwners();
+    this.setState({
+      greyhounds: newGreyhounds,
+      users: newUsers,
+      owners: newOwners,
+      submitted: true
+    })
     return data
+  }
+
+  selectGreyhound = (id) => {
+    if (this.state.currentUser.greyhounds.length === 0){
+      return
+    } else {
+      const selectedGreyhound = this.state.currentUser.greyhounds.find( greyhound => greyhound.id === id)
+      this.setState({
+        selectedGreyhound: selectedGreyhound
+      })
+    }
   }
 
   componentDidMount() {
@@ -204,9 +232,19 @@ class App extends Component {
                       currentUser={this.state.currentUser}
                       loading={this.state.loading}
                       drizzleState={this.state.drizzleState}
+                      selectGreyhound={this.selectGreyhound}
                     />}
                   >
                   </Route>
+                  {this.state.selectedGreyhound ?
+                    <Route exact path={this.state.selectedGreyhound ? "/greyhounds/"+this.state.selectedGreyhound.id : "/"} component={() =>
+                        <GreyhoundShow
+                          selectedGreyhound={this.state.selectedGreyhound}
+                        />}
+                    >
+                    </Route>
+                    :
+                    null}
                   <Route exact path="/update" component={() => <Update currentUser={this.state.currentUser}/>}></Route>
                   <Route exact path="/" component={() => <Home currentUser={this.state.currentUser} />}></Route>
               </Switch>

@@ -1,7 +1,8 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
-import Greyhound from './Greyhound'
+import GreyhoundLink from './GreyhoundLink'
 import ReadContractOutput from "./ReadContractOutput";
+import GreyhoundShow from "./GreyhoundShow"
 
 // Show currentUser's profile
 class Profile extends Component {
@@ -29,11 +30,20 @@ class Profile extends Component {
           </div>
           <div>
             <h3>Your greyhounds:</h3>
-            {this.props.currentUser.greyhounds.map(greyhound => <Greyhound key={greyhound.id} greyhound={greyhound}/>)}
+            {this.props.currentUser.greyhounds
+              .sort(function (a, b) { return a.name.localeCompare(b.name) })
+              .map(greyhound =>
+                <li>
+                  <Link to={"/greyhounds/" + greyhound.id} className="link" onClick={() => this.props.selectGreyhound(greyhound.id)}>
+                  {greyhound.name}
+                  </Link>
+                </li>
+              )
+            }
           </div>
-          <div><Link to="/register">Add or update Greyhound details</Link></div>
-          <div><Link to="/update">Update personal details</Link></div>
-          <div><Link to="/">Close</Link></div>
+          <div><Link to="/register" className="link">Add or update Greyhound details</Link></div>
+          <div><Link to="/update" className="link">Update personal details</Link></div>
+          <div><Link to="/" className="link">Close</Link></div>
         </div>
       </div>
     );

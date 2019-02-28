@@ -13,6 +13,7 @@ User.destroy_all
 UserGreyhound.destroy_all
 
 holly = User.create!(email: "holly@gmail.com", password: "123", first_name: "Holly", last_name: "Atkinson")
+jack = User.create!(email: "jack@gmail.com", password: "123", first_name: "Jack", last_name: "Ling")
 
 bob = Greyhound.create!(
   name: "Quivers Bob",
