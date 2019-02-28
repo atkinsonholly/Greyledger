@@ -76,18 +76,23 @@ class Register extends Component {
     // After submission
     else if (this.props.submitted === true) return (
       <div>
-        Thank you for your submission
-        <button onClick={this.addAnotherGreyhound}>Add or update another greyhound</button>
-        <div><Link to="/profile" onClick={this.props.turnOffSubmitted}>Close</Link></div>
+        <div><h1>Thank you for your submission</h1></div>
+        <div>
+          <button onClick={this.addAnotherGreyhound}>Add or update another greyhound</button>
+        </div>
+        <div><Link to="/profile" className="link" onClick={this.props.turnOffSubmitted}>Close</Link></div>
       </div>
     )
 
     // New selection
     else return (
       <div>
-        <button onClick={this.toggleAddGreyhound}>Add a new greyhound</button>
-        <button onClick={this.toggleUpdateGreyhound}>Update an existing greyhound</button>
-        <div><Link to="/profile">Close</Link></div>
+        <div><h1>Select an option</h1></div>
+        <div className="button-selection">
+          <button onClick={this.toggleAddGreyhound}>Add a new greyhound</button>
+          <button onClick={this.toggleUpdateGreyhound}>Update an existing greyhound</button>
+        </div>
+        <div><Link to="/profile" className="link">Close</Link></div>
       </div>
     );
   }
