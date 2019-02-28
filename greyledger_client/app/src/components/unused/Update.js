@@ -7,7 +7,7 @@ const Update = (props) => {
       <div className="update">
         <div className="update-container">
           <div>
-            [Update personal details stuff]
+            [Update personal details section]
           </div>
           <div><Link to="/profile">Close</Link></div>
         </div>

@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
-import GreyhoundLink from './GreyhoundLink'
 import ReadContractOutput from "./ReadContractOutput";
 import GreyhoundShow from "./GreyhoundShow"
 

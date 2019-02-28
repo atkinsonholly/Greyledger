@@ -40,7 +40,6 @@ class SetGreyhoundInformation extends React.Component {
       this.saveGreyhoundToBlockchain(response)
     }
     // if successful, show 'Thank you for your submission' message
-    this.props.turnOnSubmitted()
     return true
   }
 

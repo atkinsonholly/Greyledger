@@ -8,7 +8,6 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Register from './components/Register';
 import Profile from './components/Profile';
-import Update from './components/Update';
 import LoginCollection from './components/LoginCollection';
 import GreyhoundShow from "./components/GreyhoundShow";
 
@@ -34,15 +33,11 @@ class App extends Component {
     }
     else if (data !== undefined) {
       localStorage.setItem('token', data.token);
-      const user = this.getUserFromAPI();
-      const greyhounds = this.fetchGreyhounds();
-      const users = this.fetchUsers();
-      const owners = this.fetchOwners();
+      this.getUserFromAPI();
+      this.fetchGreyhounds();
+      this.fetchUsers();
+      this.fetchOwners();
       this.setState({
-        currentUser: user,
-        greyhounds: greyhounds,
-        users: users,
-        owners: owners,
         error: null
       })
     }
@@ -66,15 +61,11 @@ class App extends Component {
     }
     if (data.token !== undefined) {
       localStorage.setItem('token', data.token);
-      const user = this.getUserFromAPI();
-      const greyhounds = this.fetchGreyhounds();
-      const users = this.fetchUsers();
-      const owners = this.fetchOwners();
+      this.getUserFromAPI();
+      this.fetchGreyhounds();
+      this.fetchUsers();
+      this.fetchOwners();
       this.setState({
-        currentUser: user,
-        greyhounds: greyhounds,
-        users: users,
-        owners: owners,
         error: null
       })
     }
@@ -94,9 +85,7 @@ class App extends Component {
   fetchGreyhounds = async() => {
     const data = await Adapter.fetchGreyhounds()
     this.setState({
-      greyhounds: data.sort(function (a, b) {
-        return a.name.localeCompare(b.name);
-      })
+      greyhounds: data
     })
   }
 
@@ -109,7 +98,6 @@ class App extends Component {
 
   fetchOwners = async() => {
     const data = await Adapter.fetchOwners()
-    console.log(data)
     this.setState({
       owners: data
     })
@@ -118,19 +106,16 @@ class App extends Component {
   registerNewGreyhound = async(greyhound, owners, currentUser) => {
     const data = await Adapter.registerNewGreyhound(greyhound, owners, currentUser);
     if (data.error) {
-      alert('This form contains errors and cannot be submitted')
-      this.setState({error: data.exception})
-      return
+      alert('Please provide valid greyhound / owner details')
+      return false
     }
-    // const newGreyhounds = this.fetchGreyhounds();
-    // const newUsers = this.fetchUsers();
-    // const newOwners = this.fetchOwners();
-    // this.setState({
-    //   greyhounds: newGreyhounds,
-    //   users: newUsers,
-    //   owners: newOwners,
-    //   submitted: true
-    // })
+    this.getUserFromAPI();
+    this.fetchGreyhounds();
+    this.fetchUsers();
+    this.fetchOwners();
+    this.setState({
+      submitted: true
+    })
     return data
   }
 
@@ -150,17 +135,14 @@ class App extends Component {
   updateGreyhound = async(greyhound, owners, currentUser) => {
     const data = await Adapter.updateGreyhound(greyhound, owners, currentUser);
     if (data.error) {
-      alert('This form contains errors and cannot be submitted')
-      this.setState({error: data.exception})
-      return
+      alert('Please provide valid greyhound / owner details')
+      return false
     }
-    const newGreyhounds = this.fetchGreyhounds();
-    const newUsers = this.fetchUsers();
-    const newOwners = this.fetchOwners();
+    this.getUserFromAPI();
+    this.fetchGreyhounds();
+    this.fetchUsers();
+    this.fetchOwners();
     this.setState({
-      greyhounds: newGreyhounds,
-      users: newUsers,
-      owners: newOwners,
       submitted: true
     })
     return data
@@ -221,7 +203,6 @@ class App extends Component {
                       error={this.state.error}
                       submitted={this.state.submitted}
                       turnOffSubmitted={this.turnOffSubmitted}
-                      turnOnSubmitted={this.turnOnSubmitted}
                       updateGreyhound={this.updateGreyhound}
                     />}
                   >
@@ -245,7 +226,6 @@ class App extends Component {
                     </Route>
                     :
                     null}
-                  <Route exact path="/update" component={() => <Update currentUser={this.state.currentUser}/>}></Route>
                   <Route exact path="/" component={() => <Home currentUser={this.state.currentUser} />}></Route>
               </Switch>
               </div>

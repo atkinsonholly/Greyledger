@@ -19,14 +19,14 @@ const UpdateGreyhoundForm = props => {
       </div>
       <div>
         <label>
-          Enter greyhound's new name (if changed):
-          <input type="text" name="new_name" placeholder="Only include if the name has changed" onChange={props.handleChange}/>
+          Enter greyhound's name (MANDATORY):
+          <input type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/>
         </label>
       </div>
       <div>
         <label>
-          Enter greyhound's (previous) name:
-          <input type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/>
+          Enter greyhound's new name (if changed):
+          <input type="text" name="new_name" placeholder="Only include if the name has changed" onChange={props.handleChange}/>
         </label>
       </div>
       <div>

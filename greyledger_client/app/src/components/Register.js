@@ -51,7 +51,6 @@ class Register extends Component {
           users={this.props.users}
           owners={this.props.owners}
           error={this.props.error}
-          turnOnSubmitted={this.props.turnOnSubmitted}
           currentUser={this.props.currentUser}
         />
         <div><Link to="/profile">Close</Link></div>
@@ -68,7 +67,6 @@ class Register extends Component {
           users={this.props.users}
           owners={this.props.owners}
           error={this.props.error}
-          turnOnSubmitted={this.props.turnOnSubmitted}
           currentUser={this.props.currentUser}
         />
         <div><Link to="/profile">Close</Link></div>

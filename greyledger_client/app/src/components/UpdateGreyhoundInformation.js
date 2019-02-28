@@ -33,8 +33,6 @@ class UpdateGreyhoundInformation extends React.Component {
       //only proceed to blockchain if greyhound can be updated
       this.sendUpdateToBlockchain(response)
     }
-    // if successful, show 'Thank you for your submission' message
-    this.props.turnOnSubmitted()
     return true
   }
 
