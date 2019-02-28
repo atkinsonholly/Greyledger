@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import "../styling/login.css";
 
 const Login = (props) => {
     return (
@@ -8,7 +9,7 @@ const Login = (props) => {
           </div>
           <p></p>
           <form onSubmit={props.login}>
-              <div className="username-container">
+              <div className="email-container">
                   <div>{props.error!== null? props.error : null}</div>
                   <input type="text" className="email-input" placeholder="Email" name="email" value={props.logininfo.email} onChange={props.handleChange} />
               </div>

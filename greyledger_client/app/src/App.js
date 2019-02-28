@@ -47,7 +47,6 @@ class App extends Component {
     localStorage.removeItem('token');
     this.setState({
       currentUser: null,
-      currentUserGreyhounds: [],
       error: null,
       submitted: false
     })
@@ -70,10 +69,6 @@ class App extends Component {
       })
     }
   }
-
-  // patchUserInfo = (email, firstname, lastname) => {
-  //   Adapter.patchUserInfo(email, firstname, lastname)
-  // }
 
   getUserFromAPI = async() => {
     const data = await Adapter.getUserFromAPI();
@@ -230,9 +225,6 @@ class App extends Component {
               </Switch>
               </div>
             </main>
-            <div className="footer">
-              <p>Footer text</p>
-            </div>
         </div>
       );
     }

@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import ReadContractOutput from "./ReadContractOutput";
-import GreyhoundShow from "./GreyhoundShow"
 
 // Show currentUser's profile
 class Profile extends Component {
@@ -40,8 +39,7 @@ class Profile extends Component {
               )
             }
           </div>
-          <div><Link to="/register" className="link">Add or update Greyhound details</Link></div>
-          <div><Link to="/update" className="link">Update personal details</Link></div>
+          <div><Link to="/register" className="link">Register or update greyhound</Link></div>
           <div><Link to="/" className="link">Close</Link></div>
         </div>
       </div>
