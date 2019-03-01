@@ -5,7 +5,7 @@ const Signup = (props) => {
     return (
         <div className="signup-container">
           <div className="login-logo-container">
-              <img className="login-logo" src={require("../images/GREYLEDGER.png")} alt="logo"></img>
+              <h1>GREYLEDGER</h1>
           </div>
           <p></p>
             <form onSubmit={props.signup}>
@@ -22,10 +22,10 @@ const Signup = (props) => {
               <div className="password-container">
                   <input type="password" className="password-input" placeholder="Password" name="password" value={props.signupinfo.password} onChange={props.handleChange} />
               </div>
-              <div><p></p><input type="submit" value="Sign Up" /></div>
+              <div><p></p><input type="submit" value="Sign Up" className="login-button" /></div>
               <div>
                   <p></p><p className="prompt-text" > Have an Account? Log In!</p>
-                  <input type="submit" value="Log In" onClick={props.toggleLogin} />
+                  <input type="submit" value="Log In" onClick={props.toggleLogin} className="login-button" />
                 </div>
             </form>
         </div>

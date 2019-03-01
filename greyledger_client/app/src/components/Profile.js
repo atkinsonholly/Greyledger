@@ -10,9 +10,6 @@ class Profile extends Component {
     return (
       <div className="profile">
         <div className="profile-container">
-          <div className="profile-greyledger-logo">
-            <img src={require("../images/GREYLEDGER.png")} alt="logo"/>
-          </div>
           <div className="profile-welcome">
             <h1>Welcome, <span>{this.props.currentUser.first_name}</span></h1>
           </div>

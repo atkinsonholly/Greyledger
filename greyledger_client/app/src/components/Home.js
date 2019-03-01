@@ -17,11 +17,11 @@ class Home extends Component {
               <h2>Register new greyhounds</h2>
               <h2>Update greyhound details</h2>
               <h2>Blockchain immutability</h2>
+              <h2>Get recent transactions from Etherscan</h2>
             </div>
           </div>
           <div className="footer">
-            <p>Greyledger is a DApp which tracks greyhounds and their owners.</p>
-            <p>Greyledger intends to replicate the registration papertrail governed by The Greyhound Board of Great Britain.</p>
+            <p>Greyledger is a DApp which digitalizes the greyhound registration papertrail governed by The Greyhound Board of Great Britain.</p>
           </div>
         </div>
       </div>

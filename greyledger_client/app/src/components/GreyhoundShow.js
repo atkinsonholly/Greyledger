@@ -7,9 +7,6 @@ const GreyhoundShow = (props) => {
     return (
         <div className="greyhound-show">
           <div className="greyhound-container">
-            <div className="greyhound-show-logo">
-              <img src={require("../images/GREYLEDGER.png")} alt="logo"/>
-            </div>
             <div className="greyhound-flex-container">
               <div className="greyhound-overview">
                 <h2 className={greyhound.sex === 'F'? 'greyhound-female' : 'greyhound-male'}>{greyhound.name}, {greyhound.sex}</h2>
