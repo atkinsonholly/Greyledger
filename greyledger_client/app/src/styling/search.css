@@ -11,6 +11,23 @@
   padding-left: 50px;
 }
 
+.search-bar {
+  width: 500px;
+  height: 40px;
+  border-radius: 0px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  transition: all 0.3s ease;
+  margin-bottom: 0px;
+  margin-top: 20px;
+  font-size: 14px;
+  font-family: inherit;
+  &:focus {
+    outline: none;
+    box-shadow: 0px 9px 20px rgba($tundora, 0.3);
+  }
+}
+
 .search-etherscan {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -29,16 +46,8 @@
   margin-right: 15px;
 }
 
-.search-container input {
-
-}
-
 .search-logo {
   padding-top: 5px;
-}
-
-.search-logo img {
-
 }
 
 .search-results span {
@@ -46,14 +55,16 @@
 }
 
 .search-button {
-  padding: 1em 0;
+  height: 50px;
   width: 130px;
-  border-radius: 4px;
+  border-radius: 0px;
   border: none;
   color: #fff;
   background-color: #3498db;
   letter-spacing: 1px;
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: inherit;
+  font-size: 14px;
 }

@@ -59,11 +59,22 @@ class App extends Component {
 
   fetchTxList = async (address, event) => {
     event.preventDefault()
-    const data = await Adapter.fetchTxList(address)
-    console.log(data)
-    this.setState({
-      transactions: data.result
-    })
+    if (this.state.search !== '') {
+      const data = await Adapter.fetchTxList(address)
+      console.log(data)
+      if (typeof(data.result) !== 'string') {
+        this.setState({
+          transactions: data.result,
+          search: ''
+        })
+      }
+      else {
+        this.setState({
+          transactions: "error",
+          search: ''
+        })
+      }
+    }
   }
 
   signupUser = async (password, email, firstname, lastname) => {

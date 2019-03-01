@@ -92,6 +92,9 @@ class Register extends Component {
           <button onClick={this.toggleAddGreyhound}>Add a new greyhound</button>
           <button onClick={this.toggleUpdateGreyhound}>Update an existing greyhound</button>
         </div>
+        <div className="metamask-image">
+          <img src={require("../images/pay-with-metamask.png")} alt="logo"/>
+        </div>
         <div><Link to="/profile" className="link">Close</Link></div>
       </div>
     );
