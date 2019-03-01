@@ -14,7 +14,7 @@ class Home extends Component {
             <div className="home-header">
               <h2>Register new greyhounds</h2>
               <h2>Update greyhound details</h2>
-              <h2>Immutable ledger technology</h2>
+              <h2>Blockchain immutability</h2>
             </div>
           </div>
           <div className="footer">

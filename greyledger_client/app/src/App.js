@@ -10,6 +10,7 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import LoginCollection from './components/LoginCollection';
 import GreyhoundShow from "./components/GreyhoundShow";
+import Search from "./components/search";
 
 class App extends Component {
 
@@ -22,12 +23,13 @@ class App extends Component {
     currentUser: null,
     error: null,
     submitted: false,
-    selectedGreyhound: null
+    selectedGreyhound: null,
+    transactions: [],
+    search: ''
   };
 
   loginUser = async (email, password) => {
     const data = await Adapter.loginUser(email, password)
-    console.log(data)
     if (data.message) {
       this.setState({error: data.message})
     }
@@ -48,7 +50,19 @@ class App extends Component {
     this.setState({
       currentUser: null,
       error: null,
-      submitted: false
+      submitted: false,
+      selectedGreyhound: null,
+      transactions: [],
+      search: ''
+    })
+  }
+
+  fetchTxList = async (address, event) => {
+    event.preventDefault()
+    const data = await Adapter.fetchTxList(address)
+    console.log(data)
+    this.setState({
+      transactions: data.result
     })
   }
 
@@ -174,6 +188,12 @@ class App extends Component {
     });
   }
 
+  handleChange = (searchTerm) => {
+    this.setState({
+      search: searchTerm
+    })
+  }
+
   componentWillUnmount() {
     this.unsubscribe();
   }
@@ -209,6 +229,16 @@ class App extends Component {
                       loading={this.state.loading}
                       drizzleState={this.state.drizzleState}
                       selectGreyhound={this.selectGreyhound}
+                    />}
+                  >
+                  </Route>
+                  <Route exact path="/search" component={() =>
+                    <Search
+                      fetchTxList={this.fetchTxList}
+                      currentUser={this.state.currentUser}
+                      search={this.state.search}
+                      transactions={this.state.transactions}
+                      handleChange={this.handleChange}
                     />}
                   >
                   </Route>

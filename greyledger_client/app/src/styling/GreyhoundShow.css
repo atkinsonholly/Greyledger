@@ -1,0 +1,39 @@
+.greyhound-show {
+  margin: 0;
+  padding: 0;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.greyhound-container {
+  padding-left: 50px;
+}
+
+.greyhound-show-logo {
+  padding-top: 5px;
+}
+
+.greyhound-show-logo img {
+  display: block;
+  margin-left: auto;
+  margin-right:auto;
+}
+
+.greyhound-show-link {
+  padding-top: 10px;
+  padding-left: 50px;
+}
+
+.greyhound-female {
+  color: #d80c9f;
+}
+
+.greyhound-male {
+  color: #3878f7;
+}
+
+.greyhound-overview p {
+  padding: 5px;
+  margin-left: 20px;
+}

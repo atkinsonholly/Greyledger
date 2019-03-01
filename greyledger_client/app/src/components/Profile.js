@@ -10,8 +10,8 @@ class Profile extends Component {
     return (
       <div className="profile">
         <div className="profile-container">
-          <div className="greyledger-logo">
-            <img src="images/GREYLEDGER.png" alt="logo"/>
+          <div className="profile-greyledger-logo">
+            <img src={require("../images/GREYLEDGER.png")} alt="logo"/>
           </div>
           <div className="profile-welcome">
             <h1>Welcome, <span>{this.props.currentUser.first_name}</span></h1>
@@ -19,8 +19,8 @@ class Profile extends Component {
           <div>
             <h3>What would you like to do?</h3>
           </div>
-          <div className="profile-link"><Link to="/register" className="link">Register or update greyhound</Link></div>
-          <div className="profile-link"><Link to="/" className="link">Close</Link></div>
+          <div className="profile-link"><Link to="/register" className="link">Register or update a greyhound</Link></div>
+          <div className="profile-link"><Link to="/" className="link">Go back to the home page</Link></div>
           <div className="profile-blockchain">
               <h3>Blockchain:</h3>
                 {this.props.loading && this.props.drizzleState === null ?

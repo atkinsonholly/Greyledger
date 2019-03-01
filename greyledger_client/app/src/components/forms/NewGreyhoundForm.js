@@ -141,7 +141,6 @@ const NewGreyhoundForm = props => {
         </div>
       </div>
       <div>
-        <h3>Submit greyhound</h3>
         <label>
           Accept Terms and Conditions:
           <input type="checkbox" name="isAccepted" checked={props.isAccepted} onChange={props.handleChange} />

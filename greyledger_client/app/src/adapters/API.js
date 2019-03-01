@@ -1,8 +1,16 @@
 import { Component } from 'react';
+import API_KEY from '../apikey'
 
 const API = 'http://localhost:3000/api/v1'
+const ETHERSCAN = 'https://api.etherscan.io/'
 
 export default class Adapter extends Component {
+
+  static fetchTxList = async(address) => {
+    return await fetch (ETHERSCAN + 'api?module=account&action=txlistinternal&address=' + address + '&page=1&offset=10&sort=desc&apikey=' + API_KEY)
+    .then(resp => resp.json())
+    .then(data => {return data})
+  }
 
   static loginUser = async (email, password) => {
     return await fetch(API + '/login', {
