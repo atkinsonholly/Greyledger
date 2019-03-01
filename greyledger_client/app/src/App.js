@@ -202,8 +202,8 @@ class App extends Component {
     if (this.state.currentUser) {
       return (
         <div className="App">
-            <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser} turnOffSubmitted={this.turnOffSubmitted}/>
-            <main>
+          <main>
+              <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser} turnOffSubmitted={this.turnOffSubmitted}/>
               <div className="main-container">
                 <Switch>
                   <Route exact path="/register" component={() =>

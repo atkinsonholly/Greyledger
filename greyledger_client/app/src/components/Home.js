@@ -7,6 +7,7 @@ class Home extends Component {
   render(){
     return (
       <div className="home">
+        <div className="home-container">
           <div className="home-logo-container">
             <h1>WELCOME   TO  GREYLEDGER</h1>
           </div>
@@ -17,10 +18,12 @@ class Home extends Component {
               <h2>Blockchain immutability</h2>
             </div>
           </div>
-          <div className="footer">
-            <p>Greyledger is a DApp which tracks greyhounds and their owners.</p>
-            <p>Greyledger intends to replicate the registration papertrail governed by The Greyhound Board of Great Britain.</p>
-          </div>
+
+        </div>
+        <div className="footer">
+          <p>Greyledger is a DApp which tracks greyhounds and their owners.</p>
+          <p>Greyledger intends to replicate the registration papertrail governed by The Greyhound Board of Great Britain.</p>
+        </div>
       </div>
     );
   }
