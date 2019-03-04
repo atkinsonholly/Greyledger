@@ -2,17 +2,17 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      resources :users
+      resources :users, only: [:index, :new, :create, :show]
       post '/login', to: 'auth#create'
       post '/login', to: 'users#login'
       post '/signup', to: 'users#create'
       get '/profile', to: 'users#profile'
 
       resources :greyhound_owners
-      resources :user_greyhounds
+      resources :user_greyhounds, except: :destroy
       resources :owners
 
-      resources :greyhounds
+      resources :greyhounds, except: :destroy
       post '/greyhounds/register', to: 'greyhounds#register'
       post '/greyhounds/register_update', to: 'greyhounds#register_update'
     end
