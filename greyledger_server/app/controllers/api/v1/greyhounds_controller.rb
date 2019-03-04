@@ -24,7 +24,7 @@ class Api::V1::GreyhoundsController < ApplicationController
   def register_update
     @greyhound = Greyhound.find_by(name: params[:greyhound][:previous_name])
     if @greyhound != nil
-      Greyhound.update(@greyhound.id, :name => params[:greyhound][:new_name], :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status])
+      @greyhound = Greyhound.update(@greyhound.id, :name => params[:greyhound][:new_name], :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status])
       @greyhound_owners = update_greyhound_owners(owner_params)
       @user_greyhound = UserGreyhound.find { |user_greyhound| user_greyhound[:user_id] == params[:currentUserId] && user_greyhound[:greyhound_id] == @greyhound.id }
       if @user_greyhound == nil

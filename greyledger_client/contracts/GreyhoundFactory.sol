@@ -140,12 +140,20 @@ contract greyhoundFactory {
         address[] memory myUsers;
         for(uint i = 0; i<greyhounds.length; i++){
             Greyhound storage g = greyhounds[i];
-            // if greyhound found, update details
             if(keccak256(abi.encodePacked(g.name)) == keccak256(abi.encodePacked(_name))){
                 myUsers = g.users;
             }
         }
         return myUsers;
+    }
+
+    function getGreyhoundRef(string memory _name) public view returns(uint) {
+        for(uint i = 0; i<greyhounds.length; i++){
+            Greyhound storage g = greyhounds[i];
+            if(keccak256(abi.encodePacked(g.name)) == keccak256(abi.encodePacked(_name))){
+                return g.ref;
+            }
+        }
     }
 
 }

@@ -9,11 +9,11 @@ class ReadContractOutput extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.readGreyHoundContract()
+    this.readGreyhoundContract()
     .then(resp => this.setState(resp));
   }
 
-  readGreyHoundContract = async() => {
+  readGreyhoundContract = async() => {
     const newObj = {
       count: 0,
       greyhoundUniqueRefs: [],
@@ -23,7 +23,7 @@ class ReadContractOutput extends React.PureComponent {
     const contract = drizzle.contracts.greyhoundFactory;
     newObj.count = await contract.methods.getNumGreyhounds().call();
     const refArray = await contract.methods.findMyGreyhounds().call();
-    newObj.greyhoundUniqueRefs = refArray;
+    newObj.greyhoundUniqueRefs = refArray.sort(function (a, b) { return (a - b) });
     return newObj;
   }
 

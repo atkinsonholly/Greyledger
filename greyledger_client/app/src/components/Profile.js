@@ -40,7 +40,7 @@ class Profile extends Component {
                   <Link to={"/greyhounds/" + greyhound.id} className="link"
                     onClick={() => this.props.selectGreyhound(greyhound.id)
                   }>
-                  {greyhound.name}
+                    {greyhound.name}
                   </Link>
                 </li>
               )

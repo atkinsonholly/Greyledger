@@ -17,7 +17,7 @@ class Home extends Component {
               <h2>Register new greyhounds</h2>
               <h2>Update greyhound details</h2>
               <h2>Blockchain immutability</h2>
-              <h2>Get recent transactions from Etherscan</h2>
+              <h2>See recent transactions on Etherscan</h2>
             </div>
           </div>
           <div className="footer">

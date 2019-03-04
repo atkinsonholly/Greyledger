@@ -2,22 +2,28 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import '../styling/GreyhoundShow.css';
 
+// Show selectedGreyhound's details
 class GreyhoundShow extends React.PureComponent {
 
   state = {
-    users: []
+    users: [],
+    reference: ""
   }
 
-  readGreyhoundUsers = async(greyhound_name) => {
+  readGreyhoundUsersAndRefs = async() => {
     const { drizzle } = this.props;
     const contract = drizzle.contracts.greyhoundFactory;
-    const array = await contract.methods.getUsers(greyhound_name).call();
-    return array;
+    const array = await contract.methods.getUsers(`${this.props.selectedGreyhound.name}`).call();
+    const ref = await contract.methods.getGreyhoundRef(`${this.props.selectedGreyhound.name}`).call();
+    return { array: array, ref: ref };
   }
 
   componentDidMount() {
-    this.readGreyhoundUsers(this.props.selectedGreyhound.name)
-    .then(resp => this.setState({users: resp}));
+    this.readGreyhoundUsersAndRefs()
+    .then(resp => this.setState({
+      users: resp.array,
+      reference: resp.ref
+    }));
   }
 
   render(){
@@ -33,7 +39,8 @@ class GreyhoundShow extends React.PureComponent {
                 <h3>Sire: {this.props.selectedGreyhound.sire}</h3>
                 <p>Birthdate: {this.props.selectedGreyhound.birthdate}</p>
                 <p>Ear marks: {this.props.selectedGreyhound.left_ear} || {this.props.selectedGreyhound.right_ear}</p>
-                <h3>Owners</h3>
+                <p>Unique reference number: {this.state.reference}</p>
+              <h3>Owners</h3>
                 <p>{this.props.selectedGreyhound.owners.sort(function (a, b) { return a.last_name.localeCompare(b.last_name) }).map(owner => `${owner.first_name} ${owner.last_name}`).join(', ')}</p>
                 <h3>Dates of vaccines</h3>
                 <p>Distemper: {this.props.selectedGreyhound.distemper}</p>

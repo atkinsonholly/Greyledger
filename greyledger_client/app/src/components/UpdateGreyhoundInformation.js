@@ -29,26 +29,35 @@ class UpdateGreyhoundInformation extends React.Component {
     if (response && response.exception) return false
     if (response === undefined) return false
     if (!response.exception) {
-
       //only proceed to blockchain if greyhound can be updated
-      this.sendUpdateToBlockchain(response)
+      this.sendUpdateToBlockchain(this.state.greyhound.previous_name, response)
     }
     return true
   }
 
-  sendUpdateToBlockchain = (response) => {
+  sendUpdateToBlockchain = (prev_name, response) => {
+    const new_name = response.name;
+    const ear_marks = response.left_ear + ", " + response.right_ear;
+    const status = response.status;
+    const owners = response.owners.map(owner => owner.first_name + " " + owner.last_name + ", " + owner.address).join(", ")
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.greyhoundFactory;
 
-    // const stackId = contract.methods["addGreyhound"].cacheSend({
-    //   from: drizzleState.accounts[0]
-    // });
-    //
-    // console.log(stackId)
-    // // save the `stackId` for later reference
-    // this.setState({
-    //   stackId
-    // });
+    const stackId = contract.methods["updateGreyhound"].cacheSend(
+      prev_name,
+      new_name,
+      ear_marks,
+      status,
+      owners,
+      {
+      from: drizzleState.accounts[0]
+    });
+
+    console.log(stackId)
+    // save the `stackId` for later reference
+    this.setState({
+      stackId
+    });
   };
 
   handleChange = (event) => {
