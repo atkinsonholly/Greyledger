@@ -1,5 +1,5 @@
-const NewGreyhound = artifacts.require("NewGreyhound");
+const GreyhoundFactory = artifacts.require("GreyhoundFactory");
 
 module.exports = function(deployer) {
-  deployer.deploy(NewGreyhound);
+  deployer.deploy(GreyhoundFactory);
 };

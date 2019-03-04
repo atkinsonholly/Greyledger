@@ -257,6 +257,8 @@ class App extends Component {
                     <Route exact path={this.state.selectedGreyhound ? "/greyhounds/"+this.state.selectedGreyhound.id : "/"} component={() =>
                         <GreyhoundShow
                           selectedGreyhound={this.state.selectedGreyhound}
+                          drizzle={this.props.drizzle}
+                          drizzleState={this.state.drizzleState}
                         />}
                     >
                     </Route>

@@ -23,7 +23,7 @@ class Profile extends Component {
                 {this.props.loading && this.props.drizzleState === null ?
                   <div>"Loading Drizzle..."</div>
                 :
-                  <div classname="profile-blockchain">
+                  <div className="profile-blockchain">
                     <ReadContractOutput
                       drizzle={this.props.drizzle}
                       drizzleState={this.props.drizzleState}
@@ -36,8 +36,10 @@ class Profile extends Component {
             {this.props.currentUser.greyhounds
               .sort(function (a, b) { return a.name.localeCompare(b.name) })
               .map(greyhound =>
-                <li>
-                  <Link to={"/greyhounds/" + greyhound.id} className="link" onClick={() => this.props.selectGreyhound(greyhound.id)}>
+                <li key={greyhound.id}>
+                  <Link to={"/greyhounds/" + greyhound.id} className="link"
+                    onClick={() => this.props.selectGreyhound(greyhound.id)
+                  }>
                   {greyhound.name}
                   </Link>
                 </li>

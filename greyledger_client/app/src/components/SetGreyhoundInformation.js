@@ -39,19 +39,29 @@ class SetGreyhoundInformation extends React.Component {
       //only proceed to blockchain if greyhound, owners and users can be registered
       this.saveGreyhoundToBlockchain(response)
     }
-    // if successful, show 'Thank you for your submission' message
     return true
   }
 
   saveGreyhoundToBlockchain = (response) => {
+    const name = response.name;
+    const ear_marks = response.left_ear + ", " + response.right_ear;
+    const sexSireBirthdate = response.sex + ", " + response.sire + ", " + response.birthdate;
+    const status = response.status;
+    const owners = response.owners.map(owner => owner.first_name + " " + owner.last_name + ", " + owner.address).join(", ")
     const { drizzle, drizzleState } = this.props;
-    const contract = drizzle.contracts.NewGreyhound;
+    const contract = drizzle.contracts.greyhoundFactory;
 
-    const stackId = contract.methods["addGreyhound"].cacheSend({
+    const stackId = contract.methods["createUniqueGreyhound"].cacheSend(
+      name,
+      ear_marks,
+      sexSireBirthdate,
+      status,
+      owners,
+      [],
+      {
       from: drizzleState.accounts[0]
     });
 
-    console.log(stackId)
     // save the `stackId` for later reference
     this.setState({
       stackId

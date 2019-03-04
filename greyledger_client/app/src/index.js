@@ -6,10 +6,10 @@ import App from './App';
 
 // import drizzle functions and contract artifact
 import { Drizzle, generateStore } from "drizzle";
-import NewGreyhound from "./contracts/NewGreyhound.json";
+import GreyhoundFactory from "./contracts/greyhoundFactory.json";
 
 // let drizzle know what contracts we want
-const options = { contracts: [NewGreyhound], polls: { blocks: 3000 } };
+const options = { contracts: [GreyhoundFactory], polls: { blocks: 3000 } };
 
 // setup the drizzle store and drizzle
 const drizzleStore = generateStore(options);
@@ -20,4 +20,5 @@ ReactDOM.render(
   <Router>
     <App drizzle={drizzle} />
   </Router>,
-  document.getElementById('root'));
+  document.getElementById('root')
+);

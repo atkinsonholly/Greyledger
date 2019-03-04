@@ -38,7 +38,7 @@ class UpdateGreyhoundInformation extends React.Component {
 
   sendUpdateToBlockchain = (response) => {
     const { drizzle, drizzleState } = this.props;
-    const contract = drizzle.contracts.NewGreyhound;
+    const contract = drizzle.contracts.greyhoundFactory;
 
     // const stackId = contract.methods["addGreyhound"].cacheSend({
     //   from: drizzleState.accounts[0]
