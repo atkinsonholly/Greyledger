@@ -33,8 +33,10 @@ class SetGreyhoundInformation extends React.Component {
     //register this form to DB
     const response = await this.props.registerNewGreyhound(this.state.greyhound, this.state.owners, this.props.currentUser.id)
     // error handling
+    console.log(response)
     if (response && response.exception) return false
     if (response === undefined) return false
+    if (response === false) return false
     if (!response.exception) {
       //only proceed to blockchain if greyhound, owners and users can be registered
       this.saveGreyhoundToBlockchain(response)

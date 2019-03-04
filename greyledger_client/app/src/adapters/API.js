@@ -66,17 +66,6 @@ export default class Adapter extends Component {
     .then(data => {return data})
   }
 
-  // static patchUserInfo = (email, firstname, lastname) => {
-  //   fetch(API, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ email: email, first_name: firstname, last_name: lastname })
-  //   })
-  //     .then(resp => resp.json())
-  // }
-
   static fetchGreyhounds = async() => {
     const response = await fetch(API + "/greyhounds", {
       headers: {

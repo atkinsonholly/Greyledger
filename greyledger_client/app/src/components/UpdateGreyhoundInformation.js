@@ -6,11 +6,13 @@ class UpdateGreyhoundInformation extends React.Component {
   state = {
     stackId: null,
     greyhound: {
-      new_name: null,
+      new_name: "",
       previous_name: null,
       right_ear: null,
       left_ear: null,
-      status: "Greyhound has a new name - no change of ownership"
+      status: "Greyhound has a new name",
+      date_of_death: "",
+      details_of_death: ""
     },
     owners: {
     },
@@ -28,6 +30,7 @@ class UpdateGreyhoundInformation extends React.Component {
     // error handling
     if (response && response.exception) return false
     if (response === undefined) return false
+    if (response === false) return false
     if (!response.exception) {
       //only proceed to blockchain if greyhound can be updated
       this.sendUpdateToBlockchain(this.state.greyhound.previous_name, response)
@@ -96,6 +99,7 @@ class UpdateGreyhoundInformation extends React.Component {
           sendUpdateToDB={this.sendUpdateToDB}
           handleChange={this.handleChange}
           isAccepted={this.state.isAccepted}
+          status={this.state.greyhound.status}
           />
       </div>
     );

@@ -126,7 +126,7 @@ class App extends Component {
   registerNewGreyhound = async(greyhound, owners, currentUser) => {
     const data = await Adapter.registerNewGreyhound(greyhound, owners, currentUser);
     if (data.error) {
-      alert('Please provide valid greyhound / owner details')
+      alert('Please provide valid greyhound / owner details. ' + data.exception)
       return false
     }
     this.getUserFromAPI();
@@ -155,7 +155,7 @@ class App extends Component {
   updateGreyhound = async(greyhound, owners, currentUser) => {
     const data = await Adapter.updateGreyhound(greyhound, owners, currentUser);
     if (data.error) {
-      alert('Please provide valid greyhound / owner details')
+      alert('Please provide valid greyhound / owner details. ' + data.exception)
       return false
     }
     this.getUserFromAPI();

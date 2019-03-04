@@ -9,26 +9,54 @@ const UpdateGreyhoundForm = props => {
       <div>
         Status:
         <select name="status" onChange={props.handleChange}>
-          <option value="nameChange">Greyhound has a new name - no change of ownership</option>
-          <option value="retired">Greyhound has retired - no change of ownership</option>
-          <option value="changeOfOwnership">Greyhound still racing - notification of new ownership / name</option>
-          <option value="changeOfOwnershipRetired">Greyhound retired - notification of new ownership / name</option>
-          <option value="euthanised">Greyhound euthanised</option>
-          <option value="naturalDeath">Greyhound death from natural causes</option>
+          <option name="nameChange" value="Greyhound has a new name">Greyhound has a new name</option>
+          <option name="retired" value="Greyhound has retired">Greyhound has retired</option>
+          <option name="changeOfOwnership" value="Notification of new ownership">Notification of new owners</option>
+          <option name="euthanised" value="Greyhound has been euthanised">Greyhound has been euthanised</option>
+          <option name="naturalDeath" value="Death by natural causes">Death by natural causes</option>
         </select>
       </div>
+      {props.status === "Greyhound has been euthanised" || props.status === "Death by natural causes" ?
+      <div>
+        <div>
+          <label>
+            Enter date of death:
+            <input type="date" name="date_of_death" onChange={props.handleChange}/>
+          </label>
+        </div>
+        <div>
+          <label>
+            Enter vet information or other details of the death:
+            <input type="text" name="details_of_death" onChange={props.handleChange}/>
+          </label>
+        </div>
+      </div>
+      : null}
+
+      {props.status === "Greyhound has a new name" ?
+      <div>
+        <div>
+          <label>
+            Enter greyhound's previous name (MANDATORY):
+            <input type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/>
+          </label>
+        </div>
+        <div>
+          <label>
+            Enter greyhound's new name:
+            <input type="text" name="new_name" placeholder="Only include if the name has changed" onChange={props.handleChange}/>
+          </label>
+        </div>
+      </div>
+      :
       <div>
         <label>
-          Enter greyhound's name (MANDATORY):
+          Enter greyhound's name:
           <input type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/>
         </label>
       </div>
-      <div>
-        <label>
-          Enter greyhound's new name (if changed):
-          <input type="text" name="new_name" placeholder="Only include if the name has changed" onChange={props.handleChange}/>
-        </label>
-      </div>
+      }
+
       <div>
         <label>
           Earmarks (right):
@@ -41,7 +69,9 @@ const UpdateGreyhoundForm = props => {
           <input type="text" name="left_ear" placeholder="Enter adult ear mark" onChange={props.handleChange}/>
         </label>
       </div>
+
       <div>
+        <h3>Please enter the names and addresses of all current owners below</h3>
         <h3>Owner 1</h3>
         <div>
           <label> First Name
