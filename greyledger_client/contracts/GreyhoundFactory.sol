@@ -11,7 +11,7 @@ contract greyhoundFactory {
         string name; // greyhound name - can be updated
         string ear_marks; // greyhound ear_marks - can be updated (left_ear)
         string sexSireBirthdate; // these fields won't be updated by update function
-        string status; // e.g. initial registration, new owner(s), retired, euthanised, natural death
+        string status; // e.g. new owner(s), retired, euthanised, natural death
         string owners; // string containing all owners and addresses
         uint ref; // pseudo-random number
         address[] users; // initialise an empty array of user addresses
@@ -130,6 +130,19 @@ contract greyhoundFactory {
             }
         // if greyhound name not found, return message
         return "Unsuccessful request";
+    }
+
+    function getUsers(string memory _name) public view returns(address[] memory) {
+        address[] memory myUsers;
+        // myUsers = tempUserList;
+        for(uint i = 0; i<greyhounds.length; i++){
+            Greyhound storage g = greyhounds[i];
+            // if greyhound found, update details
+            if(keccak256(abi.encodePacked(g.name)) == keccak256(abi.encodePacked(_name))){
+                myUsers = g.users;
+                return myUsers;
+            }
+        }
     }
 
 }
