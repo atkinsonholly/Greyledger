@@ -12,7 +12,6 @@
 .nav-logo-container {
   height: 40px;
   width: 230px;
-
 }
 
 .nav-logo {
@@ -26,12 +25,13 @@
   width: auto;
   height: 66px;
   align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .nav-greyledger-logo  img {
   height: 6vw;
   max-height: 66px;
-  min-height: 66px;
 }
 
 .nav-li-container {
@@ -40,7 +40,7 @@
   margin: 0px;
   display: flex;
   flex-direction: row-reverse;
-
+  align-items: center;
 }
 
 .nav-li-container li {

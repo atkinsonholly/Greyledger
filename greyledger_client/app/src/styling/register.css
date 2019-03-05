@@ -8,6 +8,26 @@
   background-attachment: fixed;
 }
 
+.register {
+  margin: 0;
+  height: 100vh;
+  overflow: scroll;
+  padding-top: 66px;
+  min-width: 100%;
+  background: url("../images/greyhound_leash.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.register-container {
+  padding-left: 50px;
+  flex: 1 1 auto;
+  background-color: rgba(255,255,255, 0.5);
+}
+
 .register_options_container {
   display: flex;
   flex-direction: row;
@@ -15,28 +35,59 @@
 }
 
 .register_options_header {
-  color: #dedede
+  color: #fc8c27;
+  margin-left: 50px;
 }
 
 .buttons-container {
-  min-width: 100%;
-  margin: auto;
+  display: flex;
+  justify-content: center;
 }
 
-.button-selection {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  max-width: 80%;
-  margin: auto;
+.button-wrapper {
+    display: flex;
+    height: 30vw;
+    width: 30vw;
+    border-radius: 50%;
+    margin: 0 5vw;
+    overflow: hidden;
+    position: relative;
+    transition: .2s;
+}
+
+.button-wrapper:hover {
+  background-color: #fc8c27;
+  cursor: pointer;
 }
 
 .register_button {
-  
+  height: 120%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.add-another-button {
+    height: 40px;
+    width: 400px;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+    background-color: #75400e;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    font-family: inherit;
+    font-size: 14px;
 }
 
 .metamask-image img {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 12px 50px 0 rgba(0, 0, 0, 0.19);
+  width: 20vw;
+  min-width: 200px;
 }
 
 .register-link {

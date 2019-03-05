@@ -44,7 +44,7 @@ class Register extends Component {
 
     // Register a new greyhound
     else if (this.state.addGreyhound === true && this.props.submitted === false) return (
-      <div className="Registration">
+      <div className="register">
         <SetGreyhoundInformation
           drizzle={this.props.drizzle}
           drizzleState={this.props.drizzleState}
@@ -54,13 +54,12 @@ class Register extends Component {
           error={this.props.error}
           currentUser={this.props.currentUser}
         />
-        <div><Link to="/profile">Close</Link></div>
       </div>
     );
 
     // Update an existing greyhound
     else if (this.state.updateGreyhound === true && this.props.submitted === false) return (
-      <div className="UpdateGreyhound">
+      <div className="register">
         <UpdateGreyhoundInformation
           drizzle={this.props.drizzle}
           drizzleState={this.props.drizzleState}
@@ -70,18 +69,16 @@ class Register extends Component {
           error={this.props.error}
           currentUser={this.props.currentUser}
         />
-        <div><Link to="/profile">Close</Link></div>
       </div>
     );
 
     // After submission
     else if (this.props.submitted === true) return (
-      <div >
-        <div><h1>Thank you for your submission</h1></div>
+      <div className="register_options">
+        <div className="register_options_header"><h1>Thank you for your submission</h1></div>
         <div>
-          <button onClick={this.addAnotherGreyhound}>Add or update another greyhound</button>
+          <button className="add-another-button" onClick={this.addAnotherGreyhound}>Add or update another greyhound</button>
         </div>
-        <div><Link to="/profile" className="link" onClick={this.props.turnOffSubmitted}>Close</Link></div>
       </div>
     )
 
@@ -95,12 +92,9 @@ class Register extends Component {
           </div>
         </div>
         <div className="buttons-container">
-          <div className="button-selection">
-            <img className="register_button" onClick={this.toggleAddGreyhound} src={require("../images/add.png")} alt="logo"/>
-            <img className="register_button" onClick={this.toggleUpdateGreyhound} src={require("../images/circle.png")} alt="logo"/>
-          </div>
+            <div className="button-wrapper"><img className="register_button" onClick={this.toggleAddGreyhound} src={require("../images/add.png")} alt="logo"/></div>
+            <div className="button-wrapper"><img className="register_button" onClick={this.toggleUpdateGreyhound} src={require("../images/circle.png")} alt="logo"/></div>
         </div>
-        <div className="register-link-section"><Link to="/profile" className="register-link">Close</Link></div>
       </div>
     );
   }

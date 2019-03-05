@@ -95,7 +95,7 @@ class UpdateGreyhoundInformation extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="register-container">
         <div className="error">
           {this.props.error !== null? <div><p>{this.props.error}</p></div> : null}
         </div>

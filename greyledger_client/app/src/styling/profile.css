@@ -1,13 +1,21 @@
 .profile {
   margin: 0;
+  height: 100vh;
+  overflow: scroll;
   padding-top: 66px;
   min-width: 100%;
+  background: url("../images/city_greyhound.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .profile-container {
   padding-left: 50px;
+  flex: 1 1 auto;
+  background-color: rgba(255,255,255, 0.5);
 }
 
 .profile-greyledger-logo {

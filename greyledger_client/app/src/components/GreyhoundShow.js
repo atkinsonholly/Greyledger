@@ -54,7 +54,6 @@ class GreyhoundShow extends React.PureComponent {
               </div>
             </div>
           </div>
-          <Link to="/profile" className="link greyhound-show-link">Close</Link>
         </div>
     )
   }
