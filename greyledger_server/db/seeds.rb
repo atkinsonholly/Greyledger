@@ -27,7 +27,9 @@ bob = Greyhound.create!(
   viral_hepatitis: Date.parse("06/11/2015"),
   leptospira_canicola: Date.parse("06/11/2015"),
   leptospira_icterihaemorrhagiae: Date.parse("06/11/2015"),
-  parvovirus: Date.parse("06/11/2015")
+  parvovirus: Date.parse("06/11/2015"),
+  date_of_death: Date.parse("01/01/0001"),
+  details_of_death: ""
 )
 
 blitz = Greyhound.create!(
@@ -42,7 +44,9 @@ blitz = Greyhound.create!(
   viral_hepatitis: Date.parse("06/11/2015"),
   leptospira_canicola: Date.parse("06/11/2015"),
   leptospira_icterihaemorrhagiae: Date.parse("06/11/2015"),
-  parvovirus: Date.parse("06/11/2015")
+  parvovirus: Date.parse("06/11/2015"),
+  date_of_death: Date.parse("01/01/0001"),
+  details_of_death: ""
 )
 
 owner1 = Owner.create(first_name: "Lis", last_name: "Clark", address: "8 Haynes Close, London, SE3 9UA")

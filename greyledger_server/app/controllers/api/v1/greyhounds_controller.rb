@@ -11,25 +11,12 @@ class Api::V1::GreyhoundsController < ApplicationController
   end
 
   def register
-    @greyhound = create(greyhound_params)
-    @greyhound_owners = create_greyhound_owners(owner_params)
-    @user_greyhound = UserGreyhound.create(user_id: params[:currentUserId], greyhound_id: @greyhound.id)
-    if @greyhound_owners && @greyhound && @user_greyhound
-      render json: @greyhound
-    else
-      render json: {error: "Unable to submit form"}, status: 400
-    end
-  end
-
-  def register_update
-    @greyhound = Greyhound.find_by(name: params[:greyhound][:previous_name])
-    if @greyhound != nil
-      @greyhound = Greyhound.update(@greyhound.id, :name => params[:greyhound][:new_name], :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status])
-      @greyhound_owners = update_greyhound_owners(owner_params)
-      @user_greyhound = UserGreyhound.find { |user_greyhound| user_greyhound[:user_id] == params[:currentUserId] && user_greyhound[:greyhound_id] == @greyhound.id }
-      if @user_greyhound == nil
-        @user_greyhound = UserGreyhound.create(user_id: params[:currentUserId], greyhound_id: @greyhound.id)
-      end
+    array = make_greyhound_owners_array(owner_params)
+    # make sure at least 1 owner
+    if !!array
+      @greyhound = create(greyhound_params)
+      @greyhound_owners = create_greyhound_owners(array)
+      @user_greyhound = UserGreyhound.create(user_id: params[:currentUserId], greyhound_id: @greyhound.id)
       if @greyhound_owners && @greyhound && @user_greyhound
         render json: @greyhound
       end
@@ -38,15 +25,42 @@ class Api::V1::GreyhoundsController < ApplicationController
     end
   end
 
+  def register_update
+    @greyhound = Greyhound.find_by(name: params[:greyhound][:previous_name])
+    if @greyhound != nil
+      array = make_greyhound_owners_array(owner_params)
+      # make sure at least 1 owner
+      if !!array
+        # check if greyhound is already dead
+        if @greyhound.status == "Greyhound has been euthanised" || @greyhound.status == "Death by natural causes"
+          render json: {error: "Greyhound date of death has already been registered as #{@greyhound.date_of_death}"}, status: 400
+          return
+        end
+
+        if @greyhound.status != "Greyhound has been euthanised" || @greyhound.status != "Death by natural causes" && params[:greyhound][:status] == "Greyhound has been euthanised" || params[:greyhound][:status] == "Death by natural causes"
+          @greyhound = Greyhound.update(@greyhound.id, :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status], :date_of_death => params[:greyhound][:date_of_death], :details_of_death => params[:greyhound][:details_of_death])
+        elsif params[:greyhound][:status] == "Greyhound has a new name"
+          @greyhound = Greyhound.update(@greyhound.id, :name => params[:greyhound][:new_name], :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status])
+        else
+          @greyhound = Greyhound.update(@greyhound.id, :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status])
+        end
+        @greyhound_owners = update_greyhound_owners(array)
+        @user_greyhound = UserGreyhound.find { |user_greyhound| user_greyhound[:user_id] == params[:currentUserId] && user_greyhound[:greyhound_id] == @greyhound.id }
+        if @user_greyhound == nil
+          @user_greyhound = UserGreyhound.create(user_id: params[:currentUserId], greyhound_id: @greyhound.id)
+        end
+        if @greyhound_owners && @greyhound && @user_greyhound
+          render json: @greyhound
+        end
+      end
+    else
+      render json: {error: "Greyhound not found"}, status: 400
+    end
+  end
+
   private
 
-  def create_greyhound_owners(params)
-    owner_1 = {first_name: params[:owner_1_first_name], last_name: params[:owner_1_last_name], address: params[:owner_1_address]}
-    owner_2 = {first_name: params[:owner_2_first_name], last_name: params[:owner_2_last_name], address: params[:owner_2_address]}
-    owner_3 = {first_name: params[:owner_3_first_name], last_name: params[:owner_3_last_name], address: params[:owner_3_address]}
-    owner_4 = {first_name: params[:owner_4_first_name], last_name: params[:owner_4_last_name], address: params[:owner_4_address]}
-    array = [owner_1, owner_2, owner_3, owner_4]
-    array = array.select { |owner| owner[:first_name] != nil && owner[:last_name] != nil && owner[:address] != nil }
+  def create_greyhound_owners(array)
     new_array = []
     array.each do |owner|
       existingOwner = Owner.all.find_by(last_name: owner[:last_name])
@@ -70,14 +84,20 @@ class Api::V1::GreyhoundsController < ApplicationController
     new_array
   end
 
-  def update_greyhound_owners(params)
+  def make_greyhound_owners_array(params)
     owner_1 = {first_name: params[:owner_1_first_name], last_name: params[:owner_1_last_name], address: params[:owner_1_address]}
     owner_2 = {first_name: params[:owner_2_first_name], last_name: params[:owner_2_last_name], address: params[:owner_2_address]}
     owner_3 = {first_name: params[:owner_3_first_name], last_name: params[:owner_3_last_name], address: params[:owner_3_address]}
     owner_4 = {first_name: params[:owner_4_first_name], last_name: params[:owner_4_last_name], address: params[:owner_4_address]}
     array = [owner_1, owner_2, owner_3, owner_4]
-    #only make owners where full information is provided
     array = array.select { |owner| owner[:first_name] != nil && owner[:last_name] != nil && owner[:address] != nil }
+    #make sure there is at least one owner
+    if array.length > 0
+      return array
+    end
+  end
+
+  def update_greyhound_owners(array)
     new_array = []
     array.each do |owner|
     #don't delete owners (as these will be connected to other greyhounds so should remain in the DB)
@@ -124,11 +144,14 @@ class Api::V1::GreyhoundsController < ApplicationController
       viral_hepatitis: params[:viral_hepatitis],
       leptospira_canicola: params[:leptospira_canicola],
       leptospira_icterihaemorrhagiae: params[:leptospira_icterihaemorrhagiae],
-      parvovirus: params[:parvovirus])
+      parvovirus: params[:parvovirus],
+      date_of_death: Date.parse("01/01/0001"),
+      details_of_death: ""
+    )
   end
 
   def greyhound_params
-    params.require(:greyhound).permit(:name, :left_ear, :right_ear, :sire, :sex, :birthdate, :status, :distemper, :viral_hepatitis, :leptospira_canicola, :leptospira_icterihaemorrhagiae, :parvovirus)
+    params.require(:greyhound).permit(:name, :left_ear, :right_ear, :sire, :sex, :birthdate, :status, :distemper, :viral_hepatitis, :leptospira_canicola, :leptospira_icterihaemorrhagiae, :parvovirus, :date_of_death, :details_of_death)
   end
 
   def owner_params

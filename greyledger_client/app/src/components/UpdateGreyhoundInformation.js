@@ -11,7 +11,7 @@ class UpdateGreyhoundInformation extends React.Component {
       right_ear: null,
       left_ear: null,
       status: "Greyhound has a new name",
-      date_of_death: "",
+      date_of_death: "01/01/0001",
       details_of_death: ""
     },
     owners: {
@@ -33,6 +33,7 @@ class UpdateGreyhoundInformation extends React.Component {
     if (response === false) return false
     if (!response.exception) {
       //only proceed to blockchain if greyhound can be updated
+      console.log(response)
       this.sendUpdateToBlockchain(this.state.greyhound.previous_name, response)
     }
     return true
@@ -41,7 +42,10 @@ class UpdateGreyhoundInformation extends React.Component {
   sendUpdateToBlockchain = (prev_name, response) => {
     const new_name = response.name;
     const ear_marks = response.left_ear + ", " + response.right_ear;
-    const status = response.status;
+    let status = response.status;
+    if (status === "Greyhound has been euthanised" || status === "Death by natural causes") {
+      let status = response.status + ", " + response.date_of_death
+    }
     const owners = response.owners.map(owner => owner.first_name + " " + owner.last_name + ", " + owner.address).join(", ")
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.greyhoundFactory;
