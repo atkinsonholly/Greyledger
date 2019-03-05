@@ -1,0 +1,46 @@
+.register_options {
+  margin: 0;
+  padding-top: 66px;
+  padding-bottom: 100px;
+  min-width: 100%;
+  background: url("../images/greyhound_leash.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.register_options_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.register_options_header {
+  color: #dedede
+}
+
+.buttons-container {
+  min-width: 100%;
+  margin: auto;
+}
+
+.button-selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 80%;
+  margin: auto;
+}
+
+.register_button {
+  
+}
+
+.metamask-image img {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 12px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.register-link {
+  padding: 5px;
+  margin-left: 20px;
+  color: white;
+}

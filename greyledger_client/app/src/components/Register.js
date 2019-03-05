@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom'
 import SetGreyhoundInformation from "./SetGreyhoundInformation";
 import UpdateGreyhoundInformation from "./UpdateGreyhoundInformation";
+import "../styling/register.css";
 
 // Register new greyhounds and update existing greyhounds
 class Register extends Component {
@@ -35,7 +36,7 @@ class Register extends Component {
 
   render() {
     if (this.props.loading) return (
-      <div>
+      <div className="register_options">
         "Loading Drizzle..."
         <div><Link to="/profile">Close</Link></div>
       </div>
@@ -75,7 +76,7 @@ class Register extends Component {
 
     // After submission
     else if (this.props.submitted === true) return (
-      <div>
+      <div >
         <div><h1>Thank you for your submission</h1></div>
         <div>
           <button onClick={this.addAnotherGreyhound}>Add or update another greyhound</button>
@@ -86,16 +87,20 @@ class Register extends Component {
 
     // New selection
     else return (
-      <div>
-        <div><h1>Select an option</h1></div>
-        <div className="button-selection">
-          <button onClick={this.toggleAddGreyhound}>Add a new greyhound</button>
-          <button onClick={this.toggleUpdateGreyhound}>Update an existing greyhound</button>
+      <div className="register_options">
+        <div className="register_options_container">
+          <div className="register_options_header"><h1>Select an option</h1></div>
+          <div className="metamask-image">
+            <img src={require("../images/pay-with-metamask.png")} alt="logo"/>
+          </div>
         </div>
-        <div className="metamask-image">
-          <img src={require("../images/pay-with-metamask.png")} alt="logo"/>
+        <div className="buttons-container">
+          <div className="button-selection">
+            <img className="register_button" onClick={this.toggleAddGreyhound} src={require("../images/add.png")} alt="logo"/>
+            <img className="register_button" onClick={this.toggleUpdateGreyhound} src={require("../images/circle.png")} alt="logo"/>
+          </div>
         </div>
-        <div><Link to="/profile" className="link">Close</Link></div>
+        <div className="register-link-section"><Link to="/profile" className="register-link">Close</Link></div>
       </div>
     );
   }

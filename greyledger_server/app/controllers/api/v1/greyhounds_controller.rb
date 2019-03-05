@@ -37,7 +37,7 @@ class Api::V1::GreyhoundsController < ApplicationController
           return
         end
 
-        if @greyhound.status != "Greyhound has been euthanised" || @greyhound.status != "Death by natural causes" && params[:greyhound][:status] == "Greyhound has been euthanised" || params[:greyhound][:status] == "Death by natural causes"
+        if (@greyhound.status != "Greyhound has been euthanised" || @greyhound.status != "Death by natural causes") && (params[:greyhound][:status] == "Greyhound has been euthanised" || params[:greyhound][:status] == "Death by natural causes")
           @greyhound = Greyhound.update(@greyhound.id, :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status], :date_of_death => params[:greyhound][:date_of_death], :details_of_death => params[:greyhound][:details_of_death])
         elsif params[:greyhound][:status] == "Greyhound has a new name"
           @greyhound = Greyhound.update(@greyhound.id, :name => params[:greyhound][:new_name], :left_ear => params[:greyhound][:left_ear], :status => params[:greyhound][:status])

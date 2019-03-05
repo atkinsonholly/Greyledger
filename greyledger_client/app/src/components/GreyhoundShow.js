@@ -37,7 +37,7 @@ class GreyhoundShow extends React.PureComponent {
                 <h3>Linked accounts: </h3>
                 {this.state.users.map(acct => <p key={acct}>{acct}</p>)}
                 <h3>Sire: {this.props.selectedGreyhound.sire}</h3>
-                <p>Birthdate: {this.props.selectedGreyhound.birthdate}</p>
+                <p>Birthdate: {this.props.selectedGreyhound.birthdate}{this.props.selectedGreyhound.status === "Greyhound has been euthanised" || this.props.selectedGreyhound.status === "Death by natural causes" ? <span> || Date of death: {this.props.selectedGreyhound.date_of_death}</span>: null}</p>
                 <p>Ear marks: {this.props.selectedGreyhound.left_ear} || {this.props.selectedGreyhound.right_ear}</p>
                 <p>Unique reference number: {this.state.reference}</p>
               <h3>Owners</h3>
