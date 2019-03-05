@@ -34,6 +34,14 @@
   justify-content: space-between;
 }
 
+.register-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-bottom: 15px;
+}
+
 .register_options_header {
   color: #fc8c27;
   margin-left: 50px;

@@ -143,7 +143,7 @@ const UpdateGreyhoundForm = props => {
           <input type="checkbox" name="isAccepted" checked={props.isAccepted} onChange={props.handleChange} />
         </label>
       </div>
-      <input type="submit" value="Update this greyhound" />
+      <input className="submit-button" type="submit" value="Update this greyhound" />
     </form>
     </div>
   )
