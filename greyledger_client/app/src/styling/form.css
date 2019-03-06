@@ -1,0 +1,24 @@
+.form-container input[type=text], select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+.form-container label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.form-container {
+  border-radius: 5px;
+  padding: 20px;
+}

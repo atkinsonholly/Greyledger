@@ -199,9 +199,10 @@ class App extends Component {
     });
   }
 
-  handleChange = (searchTerm) => {
+  handleChange = (event) => {
+    event.preventDefault();
     this.setState({
-      search: searchTerm
+      search: event.target.value
     })
   }
 

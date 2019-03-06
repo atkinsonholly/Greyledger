@@ -2,6 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import '../styling/search.css';
 
+function moveCaretAtEnd(e){
+  let temp_value = e.target.value
+  e.target.value = ''
+  e.target.value = temp_value
+}
+
 const Search = (props) => {
     return (
         <div className="search">
@@ -19,8 +25,10 @@ const Search = (props) => {
                   className="search-bar"
                   type="text"
                   placeholder="Enter MetaMask account number"
-                  onChange={event => props.handleChange(event.target.value)}
+                  onChange={event => props.handleChange(event)}
                   value={props.search}
+                  autoFocus
+                  onFocus={moveCaretAtEnd}
                   size="45"
                  />
               </div>
