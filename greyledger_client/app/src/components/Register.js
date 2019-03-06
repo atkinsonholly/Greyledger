@@ -7,6 +7,16 @@ import "../styling/register.css";
 // Register new greyhounds and update existing greyhounds
 class Register extends Component {
 
+  state = {
+    txStatus: "pending"
+  }
+
+  setTxStatus = (status) => {
+    this.setState({
+      txStatus: status
+    })
+  }
+
   render() {
     if (this.props.loading) return (
       <div className="register_options">
@@ -26,6 +36,8 @@ class Register extends Component {
           error={this.props.error}
           currentUser={this.props.currentUser}
           setStackId={this.props.setStackId}
+          checkTxStatus={this.props.checkTxStatus}
+          setTxStatus={this.setTxStatus}
         />
       </div>
     );
@@ -46,13 +58,27 @@ class Register extends Component {
     );
 
     // After submission
-    else if (this.props.submitted === true) return (
+    else if (this.props.submitted === true && this.state.txStatus === "success") return (
       <div className="register_options">
-        {this.props.txStatus}
         <div className="register_options_header"><h1>Thank you for your submission</h1></div>
         <div>
           <button className="add-another-button" onClick={this.props.addAnotherGreyhound}>Add or update another greyhound</button>
         </div>
+      </div>
+    )
+
+    // After submission
+    else if (this.props.submitted === true && this.state.txStatus === "pending") return (
+      <div className="register_options">
+        <div className="register_options_header"><h1>Transaction pending...</h1></div>
+      </div>
+    )
+
+    // After submission
+    else if (this.props.submitted === true && this.state.txStatus === "error") return (
+      <div className="register_options">
+        <div className="register_options_header"><h1>Transaction error occurred</h1></div>
+        <div ><h3>Please check you are signed in to Metamask and that you have adequate Eth in your account</h3></div>
       </div>
     )
 

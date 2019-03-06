@@ -21,7 +21,8 @@ class SetGreyhoundInformation extends React.Component {
     },
     owners: {
     },
-    isAccepted: null
+    isAccepted: null,
+    txStatus: "pending"
   };
 
   saveGreyhoundToDB = async (event) => {
@@ -63,13 +64,20 @@ class SetGreyhoundInformation extends React.Component {
       {
       from: drizzleState.accounts[0]
     });
-
-    // save the `stackId` for later reference
-    // this.setState({
-    //   stackId
-    // });
     this.props.setStackId(stackId);
+    let txStatusFn = window.setInterval(this.props.checkTxStatus, 300)
+    // if (txStatusFn === "success") {
+    //   clearInterval()
+    // }
+    // if (txStatusFn === "error") {
+    //   clearInterval()
+    // }
+    console.log(txStatusFn)
+    this.props.setTxStatus(txStatusFn)
+    return txStatusFn
   };
+
+
 
   handleChange = (event) => {
     event.persist()

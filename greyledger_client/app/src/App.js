@@ -27,7 +27,6 @@ class App extends Component {
     transactions: [],
     search: '',
     stackId: "",
-    txStatus: "",
     addGreyhound: false,
     updateGreyhound: false
   };
@@ -38,13 +37,24 @@ class App extends Component {
     });
   }
 
-  // checkTxStatus = () => {
-  //   if (this.state.stackId !== ""  && this.state.drizzleState.transactions) {
-  //     const txId = this.state.drizzleState.transactionStack[this.state.stackId]
-  //     if (this.state.drizzleState.transactions[txId] === undefined) return ""
-  //     return this.state.drizzleState.transactions[txId].status
-  //   }
-  // }
+  checkTxStatus = () => {
+    if (this.state.stackId !== "") {
+      const txId = this.state.drizzleState.transactionStack[this.state.stackId]
+      const txStatus = this.state.drizzleState.transactions[txId]
+      if (txStatus) {
+        if (txStatus === undefined) return ""
+        console.log(txStatus.status)
+        if (txStatus.status === "success") {
+          clearInterval() //interval won't clear
+          return txStatus.status
+        }
+        if (txStatus.status === "error") {
+          clearInterval()
+          return txStatus.status
+        }
+      }
+    }
+  }
 
   componentDidMount() {
     const token = localStorage.getItem('token')
@@ -281,6 +291,7 @@ class App extends Component {
                       add={this.state.addGreyhound}
                       update={this.state.updateGreyhound}
                       addAnotherGreyhound={this.addAnotherGreyhound}
+                      checkTxStatus={this.checkTxStatus}
                     />}
                   >
                   </Route>
