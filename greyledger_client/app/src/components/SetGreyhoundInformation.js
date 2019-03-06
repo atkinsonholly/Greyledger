@@ -4,7 +4,7 @@ import NewGreyhoundForm from './forms/NewGreyhoundForm'
 class SetGreyhoundInformation extends React.Component {
 
   state = {
-    stackId: null,
+    stackId: "",
     greyhound: {
       name: null,
       left_ear: null,
@@ -65,9 +65,10 @@ class SetGreyhoundInformation extends React.Component {
     });
 
     // save the `stackId` for later reference
-    this.setState({
-      stackId
-    });
+    // this.setState({
+    //   stackId
+    // });
+    this.props.setStackId(stackId);
   };
 
   handleChange = (event) => {

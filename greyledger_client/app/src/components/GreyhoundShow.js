@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import '../styling/GreyhoundShow.css';
 
 // Show selectedGreyhound's details
@@ -50,7 +49,6 @@ class GreyhoundShow extends React.PureComponent {
                 <p>Parvovirus: {this.props.selectedGreyhound.parvovirus}</p>
               </div>
               <div className="greyhound-portrait">
-
               </div>
             </div>
           </div>

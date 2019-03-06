@@ -7,43 +7,15 @@ import "../styling/register.css";
 // Register new greyhounds and update existing greyhounds
 class Register extends Component {
 
-  state = {
-    addGreyhound: false,
-    updateGreyhound: false
-  };
-
-  toggleAddGreyhound = () => {
-    this.setState({
-      addGreyhound: true,
-      updateGreyhound: false
-    })
-  }
-
-  toggleUpdateGreyhound = () => {
-    this.setState({
-      addGreyhound: false,
-      updateGreyhound: true
-    })
-  }
-
-  addAnotherGreyhound = () => {
-    this.props.turnOffSubmitted()
-    this.setState({
-      addGreyhound: false,
-      updateGreyhound: false
-    })
-  }
-
   render() {
     if (this.props.loading) return (
       <div className="register_options">
-        "Loading Drizzle..."
-        <div><Link to="/profile">Close</Link></div>
+        <h1 className="register-drizzle">"Loading Drizzle..."</h1>
       </div>
     );
 
     // Register a new greyhound
-    else if (this.state.addGreyhound === true && this.props.submitted === false) return (
+    else if (this.props.add === true && this.props.submitted === false) return (
       <div className="register">
         <SetGreyhoundInformation
           drizzle={this.props.drizzle}
@@ -53,12 +25,13 @@ class Register extends Component {
           owners={this.props.owners}
           error={this.props.error}
           currentUser={this.props.currentUser}
+          setStackId={this.props.setStackId}
         />
       </div>
     );
 
     // Update an existing greyhound
-    else if (this.state.updateGreyhound === true && this.props.submitted === false) return (
+    else if (this.props.update === true && this.props.submitted === false) return (
       <div className="register">
         <UpdateGreyhoundInformation
           drizzle={this.props.drizzle}
@@ -75,9 +48,10 @@ class Register extends Component {
     // After submission
     else if (this.props.submitted === true) return (
       <div className="register_options">
+        {this.props.txStatus}
         <div className="register_options_header"><h1>Thank you for your submission</h1></div>
         <div>
-          <button className="add-another-button" onClick={this.addAnotherGreyhound}>Add or update another greyhound</button>
+          <button className="add-another-button" onClick={this.props.addAnotherGreyhound}>Add or update another greyhound</button>
         </div>
       </div>
     )
@@ -92,8 +66,8 @@ class Register extends Component {
           </div>
         </div>
         <div className="buttons-container">
-            <div className="button-wrapper"><img className="register_button" onClick={this.toggleAddGreyhound} src={require("../images/add.png")} alt="logo"/></div>
-            <div className="button-wrapper"><img className="register_button" onClick={this.toggleUpdateGreyhound} src={require("../images/circle.png")} alt="logo"/></div>
+            <div className="button-wrapper"><img className="register_button" onClick={this.props.toggleAddGreyhound} src={require("../images/add.png")} alt="logo"/></div>
+            <div className="button-wrapper"><img className="register_button" onClick={this.props.toggleUpdateGreyhound} src={require("../images/circle.png")} alt="logo"/></div>
         </div>
       </div>
     );

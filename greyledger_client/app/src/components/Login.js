@@ -10,7 +10,7 @@ const Login = (props) => {
           <p></p>
           <form onSubmit={props.login}>
               <div className="email-container">
-                  <div>{props.error!== null? props.error : null}</div>
+                  <div className="error-message">{props.error!== null? props.error : null}</div>
                   <input type="text" className="email-input" placeholder="Email" name="email" value={props.logininfo.email} onChange={props.handleChange} />
               </div>
               <div className="password-container">
@@ -31,3 +31,6 @@ const Login = (props) => {
 }
 
 export default Login
+
+// Sign up errors: chop off first 30 chars, and last char
+// #<ActiveRecord::RecordInvalid:

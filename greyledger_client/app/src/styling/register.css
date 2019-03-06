@@ -6,6 +6,17 @@
   background: url("../images/greyhound_leash.jpg") no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.register_options h1 {
+  color: #fc8c27;
+}
+
+.register-drizzle {
+  color: #fc8c27;
+  margin-left: 50px;
 }
 
 .register {
@@ -50,12 +61,16 @@
 .buttons-container {
   display: flex;
   justify-content: center;
+  flex: 1 1 auto;
+  align-items: center;
 }
 
 .button-wrapper {
     display: flex;
     height: 30vw;
     width: 30vw;
+    max-width: 500px;
+    max-height: 500px;
     border-radius: 50%;
     margin: 0 5vw;
     overflow: hidden;

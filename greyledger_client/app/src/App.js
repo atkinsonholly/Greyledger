@@ -25,8 +25,46 @@ class App extends Component {
     submitted: false,
     selectedGreyhound: null,
     transactions: [],
-    search: ''
+    search: '',
+    stackId: "",
+    txStatus: "",
+    addGreyhound: false,
+    updateGreyhound: false
   };
+
+  setStackId = (input) => {
+    this.setState({
+      stackId: input
+    });
+  }
+
+  // checkTxStatus = () => {
+  //   if (this.state.stackId !== ""  && this.state.drizzleState.transactions) {
+  //     const txId = this.state.drizzleState.transactionStack[this.state.stackId]
+  //     if (this.state.drizzleState.transactions[txId] === undefined) return ""
+  //     return this.state.drizzleState.transactions[txId].status
+  //   }
+  // }
+
+  componentDidMount() {
+    const token = localStorage.getItem('token')
+    if (!!token){
+      this.getUserFromAPI();
+    }
+    const { drizzle } = this.props;
+    // subscribe to changes in the store
+    this.unsubscribe = drizzle.store.subscribe(() => {
+      // every time the store updates, grab the state from drizzle
+      const drizzleState = drizzle.store.getState();
+      // check to see if it's ready, if so, update local component state
+      if (drizzleState.drizzleStatus.initialized) {
+        this.setState({
+          loading: false,
+          drizzleState
+        })
+      }
+    });
+  }
 
   loginUser = async (email, password) => {
     const data = await Adapter.loginUser(email, password)
@@ -53,7 +91,9 @@ class App extends Component {
       submitted: false,
       selectedGreyhound: null,
       transactions: [],
-      search: ''
+      search: '',
+      addGreyhound: false,
+      updateGreyhound: false
     })
   }
 
@@ -141,7 +181,9 @@ class App extends Component {
 
   turnOffSubmitted = () => {
     this.setState({
-      submitted: false
+      submitted: false,
+      addGreyhound: false,
+      updateGreyhound: false
     })
   }
 
@@ -179,30 +221,32 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    const token = localStorage.getItem('token')
-    if (!!token){
-      this.getUserFromAPI();
-    }
-    const { drizzle } = this.props;
-    // subscribe to changes in the store
-    this.unsubscribe = drizzle.store.subscribe(() => {
-      // every time the store updates, grab the state from drizzle
-      const drizzleState = drizzle.store.getState();
-      // check to see if it's ready, if so, update local component state
-      if (drizzleState.drizzleStatus.initialized) {
-        this.setState({
-          loading: false,
-          drizzleState
-        });
-      }
-    });
-  }
-
   handleChange = (event) => {
     event.preventDefault();
     this.setState({
       search: event.target.value
+    })
+  }
+
+  toggleAddGreyhound = () => {
+    this.setState({
+      addGreyhound: true,
+      updateGreyhound: false
+    })
+  }
+
+  toggleUpdateGreyhound = () => {
+    this.setState({
+      addGreyhound: false,
+      updateGreyhound: true
+    })
+  }
+
+  addAnotherGreyhound = () => {
+    this.turnOffSubmitted()
+    this.setState({
+      addGreyhound: false,
+      updateGreyhound: false
     })
   }
 
@@ -231,6 +275,12 @@ class App extends Component {
                       submitted={this.state.submitted}
                       turnOffSubmitted={this.turnOffSubmitted}
                       updateGreyhound={this.updateGreyhound}
+                      setStackId={this.setStackId}
+                      toggleAddGreyhound={this.toggleAddGreyhound}
+                      toggleUpdateGreyhound={this.toggleUpdateGreyhound}
+                      add={this.state.addGreyhound}
+                      update={this.state.updateGreyhound}
+                      addAnotherGreyhound={this.addAnotherGreyhound}
                     />}
                   >
                   </Route>

@@ -32,7 +32,7 @@ class Profile extends Component {
                 }
           </div>
           <div className="profile-greyhounds">
-            <h3>Your greyhounds:</h3>
+            {this.props.currentUser.greyhounds.length > 0 ? <h3>Your greyhounds:</h3> : null }
             {this.props.currentUser.greyhounds
               .sort(function (a, b) { return a.name.localeCompare(b.name) })
               .map(greyhound =>

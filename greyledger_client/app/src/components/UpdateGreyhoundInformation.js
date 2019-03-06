@@ -19,6 +19,15 @@ class UpdateGreyhoundInformation extends React.Component {
     isAccepted: null
   };
 
+  shouldComponentUpdate(nextProps, nextState){
+    console.log(nextProps)
+    let equals = false;
+    if (nextProps !== this.props && nextState !== this.state) {
+      equals = true;
+    }
+    return equals;
+  }
+
   sendUpdateToDB = async (event) => {
     event.preventDefault()
     if (this.state.isAccepted === false || this.state.isAccepted === null) {
@@ -44,7 +53,7 @@ class UpdateGreyhoundInformation extends React.Component {
     const ear_marks = response.left_ear + ", " + response.right_ear;
     let status = response.status;
     if (status === "Greyhound has been euthanised" || status === "Death by natural causes") {
-      let status = response.status + ", " + response.date_of_death
+      status = response.status + ", " + response.date_of_death
     }
     const owners = response.owners.map(owner => owner.first_name + " " + owner.last_name + ", " + owner.address).join(", ")
     const { drizzle, drizzleState } = this.props;

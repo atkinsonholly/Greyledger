@@ -4,7 +4,7 @@ class ReadContractOutput extends React.PureComponent {
 
   state = {
     count: 0,
-    greyhoundUniqueRefs: [],
+    greyhoundUniqueRefs: ["REGISTER GREYHOUNDS TO OBTAIN UNIQUE REFERENCE NUMBERS"],
     userAddresses: []
   };
 
@@ -16,22 +16,25 @@ class ReadContractOutput extends React.PureComponent {
   readGreyhoundContract = async() => {
     const newObj = {
       count: 0,
-      greyhoundUniqueRefs: [],
-      userAddresses: []
+      greyhoundUniqueRefs: []
     };
-    const { drizzle, drizzleState } = this.props;
+    const { drizzle } = this.props;
     const contract = drizzle.contracts.greyhoundFactory;
     newObj.count = await contract.methods.getNumGreyhounds().call();
-    const refArray = await contract.methods.findMyGreyhounds().call();
-    newObj.greyhoundUniqueRefs = refArray.sort(function (a, b) { return (a - b) });
-    return newObj;
+    let refArray = [];
+    const response = await contract.methods.findMyGreyhounds().call();
+    if (response !== null) {
+      refArray = response;
+      newObj.greyhoundUniqueRefs = refArray.sort(function (a, b) { return (a - b) });
+      return newObj;
+    }
   }
 
   render() {
     return(
       <div>
         <p>Greyhounds registered: {this.state.count}</p>
-        <p>Your unique greyhound reference numbers:</p>
+        {this.state.greyhoundUniqueRefs.length > 0 ? <p>Your unique greyhound reference numbers:</p> : null }
         <p>{this.state.greyhoundUniqueRefs.map(ref => <li key={ref}>{ref}</li>)}</p>
       </div>
     )

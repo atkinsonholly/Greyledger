@@ -6,18 +6,15 @@
   background: url("../images/greyhound_retire.jpg") no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
-
 }
 
 .home-container {
-  /* height: 94%; */
-  display: flex;
+display: flex;
   flex-direction: column;
 }
 
 .home-logo-container {
   margin-top: 10%;
-  /* margin-bottom: 10%; */
 }
 
 .home-logo-container h1 {

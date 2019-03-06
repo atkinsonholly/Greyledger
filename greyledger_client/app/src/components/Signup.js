@@ -10,7 +10,7 @@ const Signup = (props) => {
           <p></p>
             <form onSubmit={props.signup}>
               <div className="firstname-container">
-                <div>{props.error!== null? props.error : null}</div>
+                <div className="error-message">{props.error!== null? props.error : null}</div>
                   <input type="text" className="firstname-input" placeholder="First Name" name="firstname" value={props.signupinfo.firstname} onChange={props.handleChange} />
               </div>
               <div className="lastname-container">
@@ -33,3 +33,6 @@ const Signup = (props) => {
 }
 
 export default Signup
+
+// Sign up errors: chop off first 30 chars, and last char
+// #<ActiveRecord::RecordInvalid:
