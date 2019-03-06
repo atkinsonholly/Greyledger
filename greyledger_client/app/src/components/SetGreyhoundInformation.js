@@ -65,16 +65,7 @@ class SetGreyhoundInformation extends React.Component {
       from: drizzleState.accounts[0]
     });
     this.props.setStackId(stackId);
-    let txStatusFn = window.setInterval(this.props.checkTxStatus, 300)
-    // if (txStatusFn === "success") {
-    //   clearInterval()
-    // }
-    // if (txStatusFn === "error") {
-    //   clearInterval()
-    // }
-    console.log(txStatusFn)
-    this.props.setTxStatus(txStatusFn)
-    return txStatusFn
+    this.txStatusFn = window.setInterval(() => this.props.checkTxStatus(this.txStatusFn, response), 300)
   };
 
 

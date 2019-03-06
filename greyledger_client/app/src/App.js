@@ -28,7 +28,8 @@ class App extends Component {
     search: '',
     stackId: "",
     addGreyhound: false,
-    updateGreyhound: false
+    updateGreyhound: false,
+    txStatus: "pending"
   };
 
   setStackId = (input) => {
@@ -37,23 +38,30 @@ class App extends Component {
     });
   }
 
-  checkTxStatus = () => {
+  checkTxStatus = (id, response) => {
     if (this.state.stackId !== "") {
       const txId = this.state.drizzleState.transactionStack[this.state.stackId]
       const txStatus = this.state.drizzleState.transactions[txId]
       if (txStatus) {
         if (txStatus === undefined) return ""
         console.log(txStatus.status)
-        if (txStatus.status === "success") {
-          clearInterval() //interval won't clear
-          return txStatus.status
-        }
-        if (txStatus.status === "error") {
-          clearInterval()
-          return txStatus.status
-        }
+        this.setState({
+          txStatus: txStatus.status
+        })
       }
+      if (this.state.txStatus === "success") {
+        window.clearInterval(id)
+        this.confirmGreyhoundToDB(response)
+      }
+      if (this.state.txStatus === "error") {
+        window.clearInterval(id)
+      }
+      console.log(this.state.txStatus)
     }
+  }
+
+  confirmGreyhoundToDB = (response) => {
+
   }
 
   componentDidMount() {
@@ -193,7 +201,8 @@ class App extends Component {
     this.setState({
       submitted: false,
       addGreyhound: false,
-      updateGreyhound: false
+      updateGreyhound: false,
+      txStatus: "pending"
     })
   }
 
@@ -254,10 +263,6 @@ class App extends Component {
 
   addAnotherGreyhound = () => {
     this.turnOffSubmitted()
-    this.setState({
-      addGreyhound: false,
-      updateGreyhound: false
-    })
   }
 
   componentWillUnmount() {
@@ -292,6 +297,7 @@ class App extends Component {
                       update={this.state.updateGreyhound}
                       addAnotherGreyhound={this.addAnotherGreyhound}
                       checkTxStatus={this.checkTxStatus}
+                      txStatus={this.state.txStatus}
                     />}
                   >
                   </Route>

@@ -7,15 +7,15 @@ import "../styling/register.css";
 // Register new greyhounds and update existing greyhounds
 class Register extends Component {
 
-  state = {
-    txStatus: "pending"
-  }
-
-  setTxStatus = (status) => {
-    this.setState({
-      txStatus: status
-    })
-  }
+  // state = {
+  //   txStatus: "pending"
+  // }
+  //
+  // setTxStatus = (status) => {
+  //   this.setState({
+  //     txStatus: status
+  //   })
+  // }
 
   render() {
     if (this.props.loading) return (
@@ -58,7 +58,7 @@ class Register extends Component {
     );
 
     // After submission
-    else if (this.props.submitted === true && this.state.txStatus === "success") return (
+    else if (this.props.submitted === true && this.props.txStatus === "success") return (
       <div className="register_options">
         <div className="register_options_header"><h1>Thank you for your submission</h1></div>
         <div>
@@ -68,17 +68,18 @@ class Register extends Component {
     )
 
     // After submission
-    else if (this.props.submitted === true && this.state.txStatus === "pending") return (
+    else if (this.props.submitted === true && this.props.txStatus === "pending") return (
       <div className="register_options">
         <div className="register_options_header"><h1>Transaction pending...</h1></div>
       </div>
     )
 
     // After submission
-    else if (this.props.submitted === true && this.state.txStatus === "error") return (
+    else if (this.props.submitted === true && this.props.txStatus === "error") return (
       <div className="register_options">
         <div className="register_options_header"><h1>Transaction error occurred</h1></div>
-        <div ><h3>Please check you are signed in to Metamask and that you have adequate Eth in your account</h3></div>
+        <div className="error-message"><h3>Please check you are signed in to Metamask and that you have adequate ETH in your account</h3></div>
+        <div className="error-message"><h3>Your transaction has not been confirmed; please re-submit your form</h3></div>
       </div>
     )
 
