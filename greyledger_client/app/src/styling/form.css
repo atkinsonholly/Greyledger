@@ -1,4 +1,4 @@
-.form-container input[type=text], select {
+.form-container input[type=text] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -8,17 +8,95 @@
   float: left;
   width: 75%;
   margin-top: 6px;
+  font-family: inherit;
+}
+
+.form-container h2 {
+  color: #75400e;
+}
+
+.form-container h3 {
+  margin-top: 50px;;
+}
+
+.form-container select {
+  width: 100%;
+  height: 42px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+  font-family: inherit;
+}
+
+.form-container input[type=date] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+  font-family: inherit;
+}
+
+.form-container input[type=checkbox] {
+  transform: scale(1.2, 1.2);
 }
 
 .form-container label {
   padding: 12px 12px 12px 0;
   display: inline-block;
-  float: left;
-  width: 25%;
-  margin-top: 6px;
 }
 
 .form-container {
+
   border-radius: 5px;
   padding: 20px;
+}
+
+.col-1 {
+  float: left;
+  width: 450px;
+  margin-top: 6px;
+}
+
+.col-2 {
+  float: left;
+  width: 600px;
+  margin-top: 6px;
+}
+
+.check-box {
+  width: 40px;
+  height: 40px;
+}
+
+.submit-button {
+  height: 40px;
+  width: 400px;
+  border-radius: 0px;
+  border: none;
+  color: #fff;
+  background-color: #75400e;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.submit-button:hover {
+  cursor: pointer;
+}
+
+.accept {
+  margin-top: 20px;
 }
