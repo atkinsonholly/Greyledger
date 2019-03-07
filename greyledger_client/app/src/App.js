@@ -51,17 +51,53 @@ class App extends Component {
       }
       if (this.state.txStatus === "success") {
         window.clearInterval(id)
-        this.confirmGreyhoundToDB(response)
+        this.confirmGreyhoundToDB(response.id)
       }
       if (this.state.txStatus === "error") {
         window.clearInterval(id)
+        console.log(response)
+        this.deleteGreyhoundFromDB(response.id)
       }
       console.log(this.state.txStatus)
     }
   }
 
-  confirmGreyhoundToDB = (response) => {
+  checkUpdateTxStatus = (id, response) => {
+    if (this.state.stackId !== "") {
+      const txId = this.state.drizzleState.transactionStack[this.state.stackId]
+      const txStatus = this.state.drizzleState.transactions[txId]
+      if (txStatus) {
+        if (txStatus === undefined) return ""
+        console.log(txStatus.status)
+        this.setState({
+          txStatus: txStatus.status
+        })
+      }
+      if (this.state.txStatus === "success") {
+        window.clearInterval(id)
+      }
+      if (this.state.txStatus === "error") {
+        window.clearInterval(id)
+        console.log(response)
+        this.revertDB(response)
+      }
+      console.log(this.state.txStatus)
+    }
+  }
 
+  revertDB = async(response) => {
+    await Adapter.revertDB(response);
+    this.getUserFromAPI();
+  }
+
+  confirmGreyhoundToDB = async (id) => {
+    await Adapter.confirmGreyhoundToDB(id)
+    this.getUserFromAPI()
+  }
+
+  deleteGreyhoundFromDB = async (id) => {
+    await Adapter.deleteGreyhoundFromDB(id)
+    this.getUserFromAPI()
   }
 
   componentDidMount() {
@@ -297,6 +333,7 @@ class App extends Component {
                       update={this.state.updateGreyhound}
                       addAnotherGreyhound={this.addAnotherGreyhound}
                       checkTxStatus={this.checkTxStatus}
+                      checkUpdateTxStatus={this.checkUpdateTxStatus}
                       txStatus={this.state.txStatus}
                     />}
                   >

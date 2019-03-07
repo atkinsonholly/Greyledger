@@ -10,6 +10,12 @@ class Api::V1::GreyhoundsController < ApplicationController
     render json: @greyhound
   end
 
+  def destroy
+    @greyhound = Greyhound.find(params[:id])
+    @greyhound.destroy
+    render json: { message: "Deletion confirmed"}
+  end
+
   def register
     array = make_greyhound_owners_array(owner_params)
     # make sure at least 1 owner
@@ -25,9 +31,21 @@ class Api::V1::GreyhoundsController < ApplicationController
     end
   end
 
+  def confirm_greyhound
+      @greyhound = Greyhound.find_by(id: params[:id])
+      @greyhound = Greyhound.update(@greyhound.id, :confirmed => true)
+      render json: @greyhound
+  end
+
   def register_update
     @greyhound = Greyhound.find_by(name: params[:greyhound][:previous_name])
     if @greyhound != nil
+      arr = []
+      @prev_greyhound = @greyhound.deep_dup
+      @greyhound.owners.each do |owner|
+        arr.push(owner.deep_dup)
+      end
+      @prev_greyhound_owners = arr
       array = make_greyhound_owners_array(owner_params)
       # make sure at least 1 owner
       if !!array
@@ -50,11 +68,31 @@ class Api::V1::GreyhoundsController < ApplicationController
           @user_greyhound = UserGreyhound.create(user_id: params[:currentUserId], greyhound_id: @greyhound.id)
         end
         if @greyhound_owners && @greyhound && @user_greyhound
-          render json: @greyhound
+          render json: {new_greyhound: @greyhound, owners: @greyhound.owners, prev_greyhound: @prev_greyhound, prev_greyhound_owners: @prev_greyhound_owners}
         end
+        puts @prev_greyhound_owners
       end
     else
       render json: {error: "Greyhound not found"}, status: 400
+    end
+  end
+
+  def revert_DB
+    @greyhound = Greyhound.find_by(id: params[:new_greyhound][:id])
+    puts @greyhound
+    puts params
+    array = params[:prev_owners]
+    if @greyhound != nil
+      @greyhound = Greyhound.update(@greyhound.id, :name => params[:prev_greyhound][:name], :status => params[:prev_greyhound][:status], :left_ear => params[:prev_greyhound][:left_ear], :date_of_death => params[:prev_greyhound][:date_of_death], :details_of_death => params[:prev_greyhound][:details_of_death])
+      puts array
+      @greyhound.greyhound_owners.destroy_all
+      array.each do |owner|
+        new_owner = Owner.create(first_name: owner[:first_name], last_name: owner[:last_name], address: owner[:address])
+        GreyhoundOwner.create(owner_id: new_owner.id, greyhound_id: @greyhound.id)
+      end
+      render json: @greyhound
+    else
+      render json: {error: "Unable to revert"}, status: 400
     end
   end
 
@@ -98,6 +136,7 @@ class Api::V1::GreyhoundsController < ApplicationController
   end
 
   def update_greyhound_owners(array)
+    puts array
     new_array = []
     array.each do |owner|
     #don't delete owners (as these will be connected to other greyhounds so should remain in the DB)
@@ -131,6 +170,41 @@ class Api::V1::GreyhoundsController < ApplicationController
     new_array
   end
 
+  # def revert_greyhound_owners(array)
+  #   new_array = []
+  #   array.each do |owner|
+  #   # #don't delete owners (as these will be connected to other greyhounds so should remain in the DB)
+  #   #   existingOwner = Owner.all.find_by(last_name: owner["last_name"])
+  #   #   #no owner duplicates
+  #   #   if existingOwner != nil
+  #   #     #do not make a new owner if this owner already exists in DB
+  #   #     if existingOwner.first_name == owner["first_name"] && existingOwner.address == owner["address"]
+  #   #       new_array.push(existingOwner)
+  #   #     else
+  #   #       #make a new owner if first_name, last_name or address are different from existing owner
+  #   #       newOwner = Owner.create(first_name: owner["first_name"], last_name: owner["last_name"], address: owner["address"])
+  #   #       new_array.push(newOwner)
+  #   #     end
+  #   #   #make a new owner if no existing owner
+  #   #   elsif existingOwner == nil
+  #   #     newOwner = Owner.create(first_name: owner["first_name"], last_name: owner["last_name"], address: owner["address"])
+  #   #     new_array.push(newOwner)
+  #   #   end
+  #   # end
+  #   # existingGreyhoundOwners = GreyhoundOwner.select { |greyhound_owner| greyhound_owner.greyhound_id == @greyhound.id }
+  #   # #delete old greyhound_owner connections
+  #   existingGreyhoundOwners.each { | existingOwner | GreyhoundOwner.delete(existingOwner.id) }
+  #   greyhound_owners = []
+  #   #make new greyhound_owner connections
+  #   new_array.each do |owner|
+  #     new_greyhound_owner = GreyhoundOwner.create(owner_id: owner[:id], greyhound_id: @greyhound.id)
+  #     greyhound_owners.push(new_greyhound_owner)
+  #   end
+  #   #return new owners
+  #   new_array
+  # end
+
+
   def create(params)
     @greyhound = Greyhound.create!(
       name: params[:name],
@@ -146,7 +220,8 @@ class Api::V1::GreyhoundsController < ApplicationController
       leptospira_icterihaemorrhagiae: params[:leptospira_icterihaemorrhagiae],
       parvovirus: params[:parvovirus],
       date_of_death: Date.parse("01/01/0001"),
-      details_of_death: ""
+      details_of_death: "",
+      confirmed: false
     )
   end
 

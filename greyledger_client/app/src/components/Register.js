@@ -7,16 +7,6 @@ import "../styling/register.css";
 // Register new greyhounds and update existing greyhounds
 class Register extends Component {
 
-  // state = {
-  //   txStatus: "pending"
-  // }
-  //
-  // setTxStatus = (status) => {
-  //   this.setState({
-  //     txStatus: status
-  //   })
-  // }
-
   render() {
     if (this.props.loading) return (
       <div className="register_options">
@@ -53,6 +43,9 @@ class Register extends Component {
           owners={this.props.owners}
           error={this.props.error}
           currentUser={this.props.currentUser}
+          setStackId={this.props.setStackId}
+          checkUpdateTxStatus={this.props.checkUpdateTxStatus}
+          setTxStatus={this.setTxStatus}
         />
       </div>
     );
@@ -71,6 +64,9 @@ class Register extends Component {
     else if (this.props.submitted === true && this.props.txStatus === "pending") return (
       <div className="register_options">
         <div className="register_options_header"><h1>Transaction pending...</h1></div>
+        <div className="register_options_header"><h3>Please do not navigate away from this page or hit refresh while your transaction is being processed</h3></div>
+        <div className="register_options_header"><h3>Go ahead and click "Confirm" in Metamask</h3></div>
+
       </div>
     )
 

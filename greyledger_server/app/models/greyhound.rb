@@ -1,7 +1,7 @@
 class Greyhound < ApplicationRecord
-  has_many :greyhound_owners
+  has_many :greyhound_owners, dependent: :destroy
   has_many :owners, through: :greyhound_owners
-  has_many :user_greyhounds
+  has_many :user_greyhounds, dependent: :destroy
   has_many :users, through: :user_greyhounds
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }

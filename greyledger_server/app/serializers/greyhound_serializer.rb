@@ -1,5 +1,5 @@
 class GreyhoundSerializer < ActiveModel::Serializer
-  attributes :id, :name, :left_ear, :right_ear, :sire, :sex, :birthdate, :status, :distemper, :viral_hepatitis, :leptospira_canicola, :leptospira_icterihaemorrhagiae, :parvovirus, :owners, :users, :user_greyhounds, :greyhound_owners, :date_of_death, :details_of_death
+  attributes :id, :name, :left_ear, :right_ear, :sire, :sex, :birthdate, :status, :distemper, :viral_hepatitis, :leptospira_canicola, :leptospira_icterihaemorrhagiae, :parvovirus, :owners, :users, :user_greyhounds, :greyhound_owners, :date_of_death, :details_of_death, :confirmed
 
   has_many :greyhound_owners
   has_many :owners, through: :greyhound_owners

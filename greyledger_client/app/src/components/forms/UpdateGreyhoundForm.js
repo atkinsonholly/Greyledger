@@ -22,11 +22,11 @@ const UpdateGreyhoundForm = props => {
         <div>
           <div className="row">
             <div className="col-1"><label>Enter date of death:</label></div>
-            <div className="col-2"><input type="date" name="date_of_death" onChange={props.handleChange}/></div>
+            <div className="col-2"><input required type="date" name="date_of_death" onChange={props.handleChange}/></div>
           </div>
           <div className="row">
             <div className="col-1"><label>Enter vet information or other details of the death:</label></div>
-            <div className="col-2"><input type="text" name="details_of_death" onChange={props.handleChange}/></div>
+            <div className="col-2"><input required type="text" name="details_of_death" onChange={props.handleChange}/></div>
           </div>
         </div>
         : null}
@@ -35,42 +35,42 @@ const UpdateGreyhoundForm = props => {
         <div>
           <div className="row">
             <div className="col-1"><label>Enter greyhound's previous name:</label></div>
-            <div className="col-2"><input type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/></div>
+            <div className="col-2"><input required type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/></div>
           </div>
           <div className="row">
             <div className="col-1"><label>Enter greyhound's new name:</label></div>
-            <div className="col-2"><input type="text" name="new_name" placeholder="Only include if the name has changed" onChange={props.handleChange}/></div>
+            <div className="col-2"><input required type="text" name="new_name" placeholder="Only include if the name has changed" onChange={props.handleChange}/></div>
           </div>
         </div>
         :
         <div className="row">
           <div className="col-1"><label>Enter greyhound's name:</label></div>
-          <div className="col-2"><input type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/></div>
+          <div className="col-2"><input required type="text" name="previous_name" placeholder="Max. 16 characters" onChange={props.handleChange}/></div>
         </div>
         }
 
         <div className="row">
           <div className="col-1"><label>Earmarks (right):</label></div>
-          <div className="col-2"><input type="text" name="right_ear" placeholder="Enter litter ear mark" onChange={props.handleChange}/></div>
+          <div className="col-2"><input required type="text" name="right_ear" placeholder="Enter litter ear mark" onChange={props.handleChange}/></div>
         </div>
         <div className="row">
           <div className="col-1"><label>Earmarks (left):</label></div>
-          <div className="col-2"><input type="text" name="left_ear" placeholder="Enter adult ear mark" onChange={props.handleChange}/></div>
+          <div className="col-2"><input required type="text" name="left_ear" placeholder="Enter adult ear mark" onChange={props.handleChange}/></div>
         </div>
 
-          <h3>Please enter the names and addresses of all current owners below</h3>
+          <h3>Please enter the names and addresses of all owners below</h3>
             <h3>Owner 1</h3>
             <div className="row">
               <div className="col-1"><label>First Name</label></div>
-              <div className="col-2"><input type="text" name="owner_1_first_name" onChange={props.handleChange}/></div>
+              <div className="col-2"><input required type="text" name="owner_1_first_name" onChange={props.handleChange}/></div>
             </div>
             <div className="row">
               <div className="col-1"><label>Last Name</label></div>
-              <div className="col-2"><input type="text" name="owner_1_last_name" onChange={props.handleChange}/></div>
+              <div className="col-2"><input required type="text" name="owner_1_last_name" onChange={props.handleChange}/></div>
             </div>
             <div className="row">
               <div className="col-1"><label>Address</label></div>
-              <div className="col-2"><input type="text" name="owner_1_address" onChange={props.handleChange}/></div>
+              <div className="col-2"><input required type="text" name="owner_1_address" onChange={props.handleChange}/></div>
             </div>
             <h3>Owner 2</h3>
             <div className="row">
@@ -119,5 +119,5 @@ const UpdateGreyhoundForm = props => {
         </form>
     </div>
   )
-} 
+}
 export default UpdateGreyhoundForm

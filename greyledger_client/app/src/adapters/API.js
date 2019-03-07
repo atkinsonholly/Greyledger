@@ -6,6 +6,32 @@ const ETHERSCAN = 'https://api-rinkeby.etherscan.io/'
 
 export default class Adapter extends Component {
 
+  static deleteGreyhoundFromDB = async(id) => {
+    return await fetch(API + `/greyhounds/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id})
+    })
+    .then(resp => resp.json())
+    .then(data => {return data})
+  }
+
+  static confirmGreyhoundToDB = async (id) => {
+    return await fetch(API + '/greyhounds/confirm_greyhound', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({id})
+    })
+    .then(resp => resp.json())
+    .then(data => {return data})
+  }
+
   static fetchTxList = async(address) => {
     return await fetch (ETHERSCAN + 'api?module=account&action=txlist&address=' + address + '&page=1&offset=10&sort=desc&apikey=' + API_KEY)
     .then(resp => resp.json())
@@ -60,6 +86,23 @@ export default class Adapter extends Component {
       },
       body: JSON.stringify({
         greyhound: greyhound, owners: owners, currentUserId: currentUserId
+      })
+    })
+    .then(resp => resp.json())
+    .then(data => {return data})
+  }
+
+  static revertDB = async (response) => {
+    return await fetch(API + '/greyhounds/revert_DB', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prev_greyhound: response.prev_greyhound,
+        new_greyhound: response.new_greyhound,
+        prev_owners: response.prev_greyhound_owners
       })
     })
     .then(resp => resp.json())

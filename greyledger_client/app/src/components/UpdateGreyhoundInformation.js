@@ -16,17 +16,17 @@ class UpdateGreyhoundInformation extends React.Component {
     },
     owners: {
     },
-    isAccepted: null
+    isAccepted: null,
+    txStatus: "pending"
   };
 
-  shouldComponentUpdate(nextProps, nextState){
-    console.log(nextProps)
-    let equals = false;
-    if (nextProps !== this.props && nextState !== this.state) {
-      equals = true;
-    }
-    return equals;
-  }
+  // shouldComponentUpdate(nextProps, nextState){
+  //   let equals = false;
+  //   if (nextProps !== this.props && nextState !== this.state) {
+  //     equals = true;
+  //   }
+  //   return equals;
+  // }
 
   sendUpdateToDB = async (event) => {
     event.preventDefault()
@@ -48,14 +48,16 @@ class UpdateGreyhoundInformation extends React.Component {
     return true
   }
 
-  sendUpdateToBlockchain = (prev_name, response) => {
+  sendUpdateToBlockchain = (prev_name, info) => {
+    const response = info.new_greyhound
+    const new_owners = info.owners
     const new_name = response.name;
     const ear_marks = response.left_ear + ", " + response.right_ear;
     let status = response.status;
     if (status === "Greyhound has been euthanised" || status === "Death by natural causes") {
       status = response.status + ", " + response.date_of_death
     }
-    const owners = response.owners.map(owner => owner.first_name + " " + owner.last_name + ", " + owner.address).join(", ")
+    const owners = new_owners.map(owner => owner.first_name + " " + owner.last_name + ", " + owner.address).join(", ")
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.greyhoundFactory;
 
@@ -68,12 +70,8 @@ class UpdateGreyhoundInformation extends React.Component {
       {
       from: drizzleState.accounts[0]
     });
-
-    console.log(stackId)
-    // save the `stackId` for later reference
-    this.setState({
-      stackId
-    });
+    this.props.setStackId(stackId);
+    this.txStatusFn = window.setInterval(() => this.props.checkUpdateTxStatus(this.txStatusFn, info), 300)
   };
 
   handleChange = (event) => {

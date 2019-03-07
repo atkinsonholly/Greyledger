@@ -9,12 +9,14 @@ Rails.application.routes.draw do
       get '/profile', to: 'users#profile'
 
       resources :greyhound_owners
-      resources :user_greyhounds, except: :destroy
+      resources :user_greyhounds
       resources :owners
 
-      resources :greyhounds, except: :destroy
+      resources :greyhounds
       post '/greyhounds/register', to: 'greyhounds#register'
       post '/greyhounds/register_update', to: 'greyhounds#register_update'
+      post '/greyhounds/confirm_greyhound', to: 'greyhounds#confirm_greyhound'
+      post '/greyhounds/revert_DB', to: 'greyhounds#revert_DB'
     end
   end
 end
