@@ -217,7 +217,7 @@ class App extends Component {
   registerNewGreyhound = async(greyhound, owners, currentUser) => {
     const data = await Adapter.registerNewGreyhound(greyhound, owners, currentUser);
     if (data.error) {
-      alert('Please provide valid greyhound / owner details. ' + data.exception)
+      alert('Please provide valid greyhound / owner details. Note: dates must be in the past. ' + data.exception)
       return false
     }
     this.getUserFromAPI();

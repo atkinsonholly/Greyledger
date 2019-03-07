@@ -1,4 +1,5 @@
 class Greyhound < ApplicationRecord
+
   has_many :greyhound_owners, dependent: :destroy
   has_many :owners, through: :greyhound_owners
   has_many :user_greyhounds, dependent: :destroy
@@ -15,4 +16,14 @@ class Greyhound < ApplicationRecord
   validates :leptospira_canicola, presence: true
   validates :leptospira_icterihaemorrhagiae, presence: true
   validates :parvovirus, presence: true
+
+  # validate :past_dates, on: :create
+  # 
+  # private
+  # def past_dates
+  #   if date >= DateTime.now
+  #     errors.add(:date, "Must be in the past")
+  #   end
+  # end
+
 end
