@@ -17,13 +17,4 @@ class Greyhound < ApplicationRecord
   validates :leptospira_icterihaemorrhagiae, presence: true
   validates :parvovirus, presence: true
 
-  # validate :past_dates, on: :create
-  # 
-  # private
-  # def past_dates
-  #   if date >= DateTime.now
-  #     errors.add(:date, "Must be in the past")
-  #   end
-  # end
-
 end

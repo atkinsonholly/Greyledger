@@ -235,7 +235,9 @@ class App extends Component {
       submitted: false,
       addGreyhound: false,
       updateGreyhound: false,
-      txStatus: "pending"
+      txStatus: "pending",
+      search: '',
+      transactions: []
     })
   }
 
