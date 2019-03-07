@@ -43,7 +43,7 @@ const Search = (props) => {
               <div>
                 <h3>Most recent transactions</h3>
                 {props.transactions.map(item =>
-                  <div key={item.id}>
+                  <div key={item.hash}>
                     {item.isError === '1'? <p>Transaction error: <span>{item.errCode}</span></p> : null}
                     <p>Blocknumber: {item.blockNumber}</p>
                     <p>Timestamp: {item.timeStamp}</p>

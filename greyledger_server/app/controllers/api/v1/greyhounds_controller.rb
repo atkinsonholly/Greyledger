@@ -170,41 +170,6 @@ class Api::V1::GreyhoundsController < ApplicationController
     new_array
   end
 
-  # def revert_greyhound_owners(array)
-  #   new_array = []
-  #   array.each do |owner|
-  #   # #don't delete owners (as these will be connected to other greyhounds so should remain in the DB)
-  #   #   existingOwner = Owner.all.find_by(last_name: owner["last_name"])
-  #   #   #no owner duplicates
-  #   #   if existingOwner != nil
-  #   #     #do not make a new owner if this owner already exists in DB
-  #   #     if existingOwner.first_name == owner["first_name"] && existingOwner.address == owner["address"]
-  #   #       new_array.push(existingOwner)
-  #   #     else
-  #   #       #make a new owner if first_name, last_name or address are different from existing owner
-  #   #       newOwner = Owner.create(first_name: owner["first_name"], last_name: owner["last_name"], address: owner["address"])
-  #   #       new_array.push(newOwner)
-  #   #     end
-  #   #   #make a new owner if no existing owner
-  #   #   elsif existingOwner == nil
-  #   #     newOwner = Owner.create(first_name: owner["first_name"], last_name: owner["last_name"], address: owner["address"])
-  #   #     new_array.push(newOwner)
-  #   #   end
-  #   # end
-  #   # existingGreyhoundOwners = GreyhoundOwner.select { |greyhound_owner| greyhound_owner.greyhound_id == @greyhound.id }
-  #   # #delete old greyhound_owner connections
-  #   existingGreyhoundOwners.each { | existingOwner | GreyhoundOwner.delete(existingOwner.id) }
-  #   greyhound_owners = []
-  #   #make new greyhound_owner connections
-  #   new_array.each do |owner|
-  #     new_greyhound_owner = GreyhoundOwner.create(owner_id: owner[:id], greyhound_id: @greyhound.id)
-  #     greyhound_owners.push(new_greyhound_owner)
-  #   end
-  #   #return new owners
-  #   new_array
-  # end
-
-
   def create(params)
     @greyhound = Greyhound.create!(
       name: params[:name],

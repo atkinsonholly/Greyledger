@@ -20,14 +20,6 @@ class UpdateGreyhoundInformation extends React.Component {
     txStatus: "pending"
   };
 
-  // shouldComponentUpdate(nextProps, nextState){
-  //   let equals = false;
-  //   if (nextProps !== this.props && nextState !== this.state) {
-  //     equals = true;
-  //   }
-  //   return equals;
-  // }
-
   sendUpdateToDB = async (event) => {
     event.preventDefault()
     if (this.state.isAccepted === false || this.state.isAccepted === null) {

@@ -68,7 +68,6 @@ class App extends Component {
       const txStatus = this.state.drizzleState.transactions[txId]
       if (txStatus) {
         if (txStatus === undefined) return ""
-        console.log(txStatus.status)
         this.setState({
           txStatus: txStatus.status
         })
@@ -78,7 +77,6 @@ class App extends Component {
       }
       if (this.state.txStatus === "error") {
         window.clearInterval(id)
-        console.log(response)
         this.revertDB(response)
       }
       console.log(this.state.txStatus)
@@ -155,7 +153,6 @@ class App extends Component {
     event.preventDefault()
     if (this.state.search !== '') {
       const data = await Adapter.fetchTxList(address)
-      console.log(data)
       if (typeof(data.result) !== 'string') {
         this.setState({
           transactions: data.result,

@@ -9,7 +9,7 @@ const NewGreyhoundForm = props => {
           <h3 className="greyhound_form_header">Greyhound Information</h3>
           <div className="row">
             <div className="col-1"><label>Greyhound Racing Name:</label></div>
-            <div className="col-2"><input required type="text" required name="name" placeholder="Max. 16 characters" onChange={props.handleChange}/></div>
+            <div className="col-2"><input type="text" required name="name" placeholder="Max. 16 characters" onChange={props.handleChange}/></div>
           </div>
           <div className="row">
             <div className="col-1"><label>Earmarks (left):</label></div>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom'
 import SetGreyhoundInformation from "./SetGreyhoundInformation";
 import UpdateGreyhoundInformation from "./UpdateGreyhoundInformation";
 import "../styling/register.css";
