@@ -249,7 +249,7 @@ class App extends Component {
   updateGreyhound = async(greyhound, owners, currentUser) => {
     const data = await Adapter.updateGreyhound(greyhound, owners, currentUser);
     if (data.error) {
-      alert('Please provide valid greyhound / owner details. ' + data.exception)
+      alert('Please provide valid greyhound / owner details. Note: you cannot update a greyhound that has died. ' + data.exception)
       return false
     }
     this.getUserFromAPI();
