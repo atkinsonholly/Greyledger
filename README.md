@@ -1,68 +1,73 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<a href="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_welcome.png"><img src="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_welcome.png" title="ModuleFiveProject" alt="Module Five Project"></a>
 
-In the project directory, you can run:
+# Flatiron School - Module Five Project
 
-### `npm start`
+**Greyledger**
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> **Greyledger brings the benefit of an immutable ledger of greyhound ownership to the commercial greyhound racing industry.**
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+> Greyledger is a hybrid web app / DApp that effectively digitalizes the racing greyhound registration process, currently governed by The Greyhound Board of Great Britain. 
 
-### `npm test`
+> Users can sign up and register racing greyhounds to the Ruby on Rails / postgres backend - and onto the blockchain. Users do not have to be owners in order to register greyhounds and make updates to greyhound records.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> Each new greyhound registration makes a call to the underlying smart contract, which generates a greyhound instance, including a unique pseudo-random number. Users can visit their profile to view / update their existing greyhounds, see which Metamask accounts are linked to each dog, and search their transaction history by account (via fetch requests to the Etherscan API).
 
-### `npm run build`
+**PROJECT OVERVIEW**
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In brief:
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Drizzle DApp (Truffle / React)
+- OO React / Javascript frontend, with asynchronous programming, JWT authentication and React Routes
+- Hybrid Ruby on Rails (with RESTful MVC architecture) / postgreSQL / Ethereum backend 
+- Pure CSS styling.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Functionality:
 
-### `npm run eject`
+- Greyledger allows users to sign up, log in and see their greyhound records, including: greyhound name, sex, status, birthdate, sire, earmarks, vaccine history, unique smart contract reference numbers and linked Metamask addresses.
+- Users use Metamask to sign transactions.
+- New greyhound registrations and updates to existing greyhounds are saved to the database (Ruby on Rails is a project requirement) and also pushed to the blockchain.
+- Users can search their most recent transactions by entering their Metamask account number (address).
+- React routes, links.
+- Verification.
+- Serializers.
+- JWT authentication, secure password.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Models:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Users
+- UserGreyhounds
+- Greyhounds
+- Owners
+- GreyhoundOwners
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. In greyledger/greyledger_server, start the rails server 
+```
+rails s
+```
 
-## Learn More
+2. Launch test blockchain by starting Ganache
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. In greyledger/greyledger_client, 'push' the smart contract to the test blockchain 
+```
+truffle migrate
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. In greyledger/greyledger_client/app, start node
+```
+npm start
+```
 
-### Code Splitting
+4. Go to: localhost:3001
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Author
 
-### Analyzing the Bundle Size
+* **Holly Atkinson** - https://github.com/atkinsonholly
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+<a href="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_success.png"><img src="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_success.png" title="Successful_transaction" alt="Successful transaction"></a>
 
-### Making a Progressive Web App
+<a href="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_search_etherscan.png"><img src="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_search_etherscan.png" title="Search_page" alt="Search page"></a>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<a href="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_form.png"><img src="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_form.png" title="Example_form" alt="Example form"></a>
