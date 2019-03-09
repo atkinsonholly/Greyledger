@@ -51,14 +51,14 @@ rails s
 
 2. Launch the test blockchain by starting Ganache
 
-3. In greyledger/greyledger_client, 'push' the smart contract to the test blockchain 
+3. Ensure that Metamask is installed and running on the same RPC as Ganache
+
+4. Import the first address from Ganache to Metamask by copying and pasting the private key 
+
+5. In greyledger/greyledger_client, 'push' the smart contract to the test blockchain 
 ```
 truffle migrate
 ```
-
-4. Ensure that Metamask is installed and running on the same RPC as Ganache
-
-5. Import the first address from Ganache to Metamask by copying and pasting the private key 
 
 6. In greyledger/greyledger_client/app, start node
 ```
