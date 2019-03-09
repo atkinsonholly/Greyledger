@@ -8,6 +8,7 @@
   background-size: cover;
   background-attachment: fixed;
   box-sizing: border-box;
+  overflow: scroll;
 }
 
 .greyhound-container {
