@@ -13,6 +13,7 @@
 
 > Each new greyhound registration makes a call to the underlying smart contract, which generates a greyhound instance, including a unique pseudo-random number. Users can visit their profile to view / update their existing greyhounds, see which Metamask accounts are linked to each dog, and search their transaction history by account (via fetch requests to the Etherscan API).
 
+
 **PROJECT OVERVIEW**
 
 In brief:
@@ -48,19 +49,24 @@ To run:
 rails s
 ```
 
-2. Launch test blockchain by starting Ganache
+2. Launch the test blockchain by starting Ganache
 
 3. In greyledger/greyledger_client, 'push' the smart contract to the test blockchain 
 ```
 truffle migrate
 ```
 
-3. In greyledger/greyledger_client/app, start node
+4. Ensure that Metamask is installed and running on the same RPC as Ganache
+
+5. Import the first address from Ganache to Metamask by copying and pasting the private key 
+
+6. In greyledger/greyledger_client/app, start node
 ```
 npm start
 ```
 
-4. Go to: localhost:3001
+7. Go to: localhost:3001
+
 
 ## Author
 
