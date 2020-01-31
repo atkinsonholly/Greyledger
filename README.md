@@ -1,9 +1,7 @@
 
-<a href="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_welcome.png"><img src="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_welcome.png" title="ModuleFiveProject" alt="Module Five Project"></a>
+<a href="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_welcome.png"><img src="https://github.com/atkinsonholly/Greyledger/blob/master/greyledger_client/app/src/images/Greyledger_welcome.png" title="Greyledger" alt="Greyledger"></a>
 
-# Flatiron School - Module Five Project
-
-**Greyledger**
+# Greyledger
 
 > **Greyledger brings the benefit of an immutable ledger of greyhound ownership to the commercial greyhound racing industry.**
 
