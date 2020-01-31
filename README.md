@@ -25,7 +25,7 @@ Functionality:
 
 - Greyledger allows users to sign up, log in and see their greyhound records, including: greyhound name, sex, status, birthdate, sire, earmarks, vaccine history, unique smart contract reference numbers and linked Metamask addresses.
 - Users use Metamask to sign transactions.
-- New greyhound registrations and updates to existing greyhounds are saved to the database (Ruby on Rails is a project requirement) and also pushed to the blockchain.
+- New greyhound registrations and updates to existing greyhounds are saved to the database and also pushed to the blockchain.
 - Users can search their most recent transactions by entering their Metamask account number (address).
 - React routes, links.
 - Verification.
